@@ -98,7 +98,7 @@ color:white;
 }
 
 
-.signupForm {
+.registrationForms {
   display: flex;
   text-align: center;
   width: auto;
@@ -116,7 +116,7 @@ color:white;
   transform: translateX(-50%);
 }
 
-.signupForm input {
+.registrationForms input {
   display: inline-block;
   width: 350px;
   background: #0077B6;
