@@ -105,9 +105,9 @@ color:white;
   height: auto;
   background: white;
   border: 0 none;
+  padding: 10px 10px;
   border-radius: 20px;
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-  padding: 1px 30px;
   box-sizing: border-box;
   position: fixed;
   z-index: 1000;
@@ -118,7 +118,7 @@ color:white;
 
 .signupForm input {
   display: inline-block;
-  width: 300px;
+  width: 350px;
   background: #0077B6;
   font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
   font-weight: bold;
