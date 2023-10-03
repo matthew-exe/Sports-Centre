@@ -28,11 +28,32 @@ text-decoration:none;
 color:white;
 }
 
+/* Adjust the nav bar to vertical when less then 600px (Not finished)
+
+@media screen and (max-width: 600px) {
+  .navbar ul {
+    flex-direction: column;
+    width: 120px;
+    height: 100vh;
+  }
+
+  .navbar ul li {
+    margin-bottom:10px;
+    font-size:30px;
+  
+  }
+
+  .navbar ul li:nth-child(){
+    margin-bottom:auto;
+    font-size:30px;
+  }
+}
+*/
 
 
-#login {
+#navbarButtons {
     align-items: center;
-    background-color: #0A66C2;
+    background-color: #0077B6;
     border: 0;
     border-radius: 100px;
     box-sizing: border-box;
@@ -59,19 +80,52 @@ color:white;
     vertical-align: middle;
 }
 
-#login:hover,
-#login:focus { 
+#navbarButtons:hover,
+#navbarButtons:focus { 
   background-color: #16437E;
   color: #ffffff;
 }
 
-#login:active {
+#navbarButtons:active {
   background: #09223b;
   color: rgb(255, 255, 255, .7);
 }
 
-#login:disabled { 
+#navbarButtons:disabled { 
   cursor: not-allowed;
   background: rgba(0, 0, 0, .08);
   color: rgba(0, 0, 0, .3);
+}
+
+
+.signupForm {
+  display: flex;
+  text-align: center;
+  width: auto;
+  height: auto;
+  background: white;
+  border: 0 none;
+  border-radius: 20px;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+  padding: 1px 30px;
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 1000;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.signupForm input {
+  display: inline-block;
+  width: 300px;
+  background: #0077B6;
+  font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 15px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 5px;
 }

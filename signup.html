@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website - Homepage</title>
+    <title>Website - Signup</title>
     <link rel="stylesheet" href="styles.css"> <!-- If you have an external stylesheet -->
 </head>
 
@@ -13,7 +13,7 @@
     <ul>
         <li>
             <a href="index.html">
-            <img
+            <img 
             src="logo.svg"
             alt="triangle with all three sides equal"
             height=80px
@@ -26,7 +26,13 @@
 </div>
 
 <body>
-    <p>welcome to the homepage</p>
+    <div class="signupForm">
+        <form action="/action_page.php">
+            <input type="text" id="name" name="name" placeholder="Name" required><br>
+            <input type="text" id="surname" name="surname" placeholder="Surname" required><br><br>
+            <input type="submit" value="Submit">
+          </form> 
+    </div>
 </body>
 
 </html>
