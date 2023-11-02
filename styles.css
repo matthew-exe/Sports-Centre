@@ -5,13 +5,13 @@ box-sizing:border-box;
 }
     
 .navbar ul{
-display:flex;
-justify-content:flex-end;
-align-items:center;
-background-color: #023E8A;
-height: 75px;
-list-style-type: none
-}
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  background-color: #023E8A;
+  height: 75px;
+  list-style-type: none
+  }
 
 .navbar ul li{
 margin: 0 15px;
@@ -128,4 +128,9 @@ color:white;
   cursor: pointer;
   padding: 10px 5px;
   margin: 10px 5px;
+}
+
+.registrationForms ::placeholder {
+  color: white;
+  opacity: 50%;
 }
