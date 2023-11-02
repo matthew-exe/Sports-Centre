@@ -1,3 +1,8 @@
+<?php
+require_once "includes/login_view.inc.php";
+require_once "includes/config_session.inc.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,16 +26,26 @@
             width=80px />
             </a>
         </li>
-        <li><a id="navbarButtons" href="login.php">Login</a></li>
-        <li><a id="navbarButtons" href="signup.php">Sign up</a></li>
+        <?php if (!isset($_SESSION["userId"])) { ?>
+            <li><a id="navbarButtons" href="login.php">Login</a></li>
+            <li><a id="navbarButtons" href="signup.php">Sign up</a></li>
+        <?php } else { ?>
+            <li><a id="navbarButtons" href="includes/logout.inc.php">Logout</a></li>
+        <?php } ?>
     </ul>
 </div>
 
 <body>
+    <?php 
+        showUsername();
+    ?>
     <div class="registrationForms" id="loginForm">
-        <form action="/login-inc.php">
-            <input type="text" id="email" name="email" placeholder="Email" required><br>
-            <input type="text" id="password" name="password" placeholder="Password" required><br><br>
+        <form action="includes/login.inc.php" method="post">
+            <input type="text" name="username" placeholder="Username"><br>
+            <input type="password" name="pwd" placeholder="Password"><br><br>
+            <?php 
+                checkLoginErrors();
+            ?>
             <input type="submit" value="Login">
           </form> 
     </div>
