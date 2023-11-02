@@ -8,7 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
         require_once "dbh.inc.php";
         require_once "signup_model.inc.php";
-        // if view was needed it would go here !!!!!!!
         require_once "signup_controller.inc.php";
 
         // ERROR HANDLERS
