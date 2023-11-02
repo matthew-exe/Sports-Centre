@@ -1,5 +1,6 @@
 <?php
 require_once "includes/signup_view.inc.php";
+require_once "includes/login_view.inc.php";
 require_once "includes/config_session.inc.php";
 ?>
 
@@ -26,12 +27,19 @@ require_once "includes/config_session.inc.php";
             width=80px />
             </a>
         </li>
-        <li><a id="navbarButtons" href="login.php">Login</a></li>
-        <li><a id="navbarButtons" href="signup.php">Sign up</a></li>
+        <?php if (!isset($_SESSION["userId"])) { ?>
+            <li><a id="navbarButtons" href="login.php">Login</a></li>
+            <li><a id="navbarButtons" href="signup.php">Sign up</a></li>
+        <?php } else { ?>
+            <li><a id="navbarButtons" href="includes/logout.inc.php">Logout</a></li>
+        <?php } ?>
     </ul>
 </div>
 
 <body>
+    <?php 
+        showUsername();
+    ?>
     <div class="registrationForms" id="signupForm">
         <form action="includes/signup.inc.php" method="post">
             <?php

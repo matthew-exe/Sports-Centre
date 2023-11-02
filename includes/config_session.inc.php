@@ -13,18 +13,43 @@ session_set_cookie_params([
 
 session_start();
 
-if (!isset($_SESSION["last_regeneration"])) { // if first time making session
-    regenerate_session_id();
+if (isset($_SESSION["userId"])) {
+    if (!isset($_SESSION["lastRegeneration"])) { // if first time making session
+        regenerateSessionIdLoggedIn();
+    }
+    else {
+        $interval = 60 * 30; // setting the interval to be 60 seconds times 30 (30 minutes)
+    
+        if (time() - $_SESSION["lastRegeneration"] >= $interval) { // if it has been more than 30 minutes since regenerating id
+            regenerateSessionIdLoggedIn();
+        }
+    }
 }
 else {
-    $interval = 60 * 30; // setting the interval to be 60 seconds times 30 (30 minutes)
-
-    if (time() - $_SESSION["last_regeneration"] >= $interval) { // if it has been more than 30 minutes since regenerating id
-        regenerate_session_id();
+    if (!isset($_SESSION["lastRegeneration"])) { // if first time making session
+        regenerateSessionId();
+    }
+    else {
+        $interval = 60 * 30; // setting the interval to be 60 seconds times 30 (30 minutes)
+    
+        if (time() - $_SESSION["lastRegeneration"] >= $interval) { // if it has been more than 30 minutes since regenerating id
+            regenerateSessionId();
+        }
     }
 }
 
-function regenerate_session_id() {
+
+function regenerateSessionIdLoggedIn() {
     session_regenerate_id(true);
-    $_SESSION["last_regeneration"] = time();
+
+    $newSessionId = session_create_id();
+    $sessionId = $newSessionId . "_" . $_SESSION["userId"];
+    session_id($sessionId);
+
+    $_SESSION["lastRegeneration"] = time();
+}
+
+function regenerateSessionId() {
+    session_regenerate_id(true);
+    $_SESSION["lastRegeneration"] = time();
 }
