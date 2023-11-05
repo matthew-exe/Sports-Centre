@@ -2,8 +2,8 @@
 
 declare(strict_types= 1);
 
-function isInputEmpty(string $username, string $pwd) {
-    if (empty($username) || empty($pwd)) {
+function isInputEmpty(string $email, string $pwd) {
+    if (empty($email) || empty($pwd)) {
         return true;
     }
     else {
@@ -11,7 +11,7 @@ function isInputEmpty(string $username, string $pwd) {
     }
 }
 
-function isUsernameWrong(array|bool $result) {
+function isEmailWrong(array|bool $result) {
     if  (!$result) {
         return true;
     } 
@@ -21,10 +21,10 @@ function isUsernameWrong(array|bool $result) {
 }
 
 function isPasswordWrong(string $pwd, string $hashedPwd) {
-    if  (!password_verify($pwd, $hashedPwd)) {
-        return true;
+    if  (password_verify($pwd, $hashedPwd)) {
+        return false;
     } 
     else {
-        return false;
+        return true;
     }
 }

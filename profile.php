@@ -1,10 +1,8 @@
 <?php
-require_once "includes/login_view.inc.php";
-require_once "includes/config_session.inc.php";
-
-
-
+    require_once "includes/config_session.inc.php";
+    require_once "includes/profile_view.inc.php";
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +10,7 @@ require_once "includes/config_session.inc.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website - Login</title>
+    <title>Website - Homepage</title>
     <link rel="icon" href="images/logo.svg" type="image/x-icon"/>
     <link rel="stylesheet" href="styles.css"> <!-- If you have an external stylesheet -->
 </head>
@@ -22,7 +20,7 @@ require_once "includes/config_session.inc.php";
     <ul>
         <li>
             <a href="index.php">
-            <img 
+            <img
             src="images/logo.svg"
             alt="Logo"
             height=80px
@@ -33,32 +31,19 @@ require_once "includes/config_session.inc.php";
             <li><a id="navbarButtons" href="login.php">Login</a></li>
             <li><a id="navbarButtons" href="signup.php">Sign up</a></li>
         <?php } else { ?>
-            <li>
-                <a id="navbarButtons" 
-                href="profile.php">            
-                <img
-                src="images/profile.svg"
-                alt="Logo"
-                height=20px
-                width=20px />
-                </a>
-            </li>
+            <li><a id="navbarButtons" href="includes/logout.inc.php">Logout</a></li>
         <?php } ?>
     </ul>
 </div>
 
 <body>
-    <?php 
-        showUsername();
-    ?>
-    <div class="registrationForms" id="loginForm">
-        <form action="includes/login.inc.php" method="post">
-            <input type="text" name="email" placeholder="Email"><br>
-            <input type="text" name="pwd" placeholder="Password"><br><br>
-            <?php 
-                checkLoginErrors();
+    <div class="registrationForms" id="signupForm">
+        <form action="includes/profile.inc.php" method="post">
+            <?php
+                profileData();
+                checkProfileEditErrors();
             ?>
-            <input type="submit" value="Login">
+            <input type="submit" value="Edit Profile">
           </form> 
     </div>
 </body>

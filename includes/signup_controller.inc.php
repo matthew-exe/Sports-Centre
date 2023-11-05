@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1); // makes variables have a type
 
-function isInputEmpty(string $username, string $email, string $pwd) {
-    if (empty($username) || empty($email) || empty($pwd)) {
+function isInputEmpty(string $firstname, string $surname, string $email, string $pwd) {
+    if (empty($firstname) || empty($surname) || empty($email) || empty($pwd)) {
         return true;
     }
     else {
@@ -19,15 +19,6 @@ function isEmailInvalid(string $email) {
     }
 }
 
-function isUsernameTaken(object $pdo, string $username) {
-    if (getUsername($pdo, $username)) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
 function isEmailRegistered(object $pdo, string $email) {
     if (getEmail($pdo, $email)) {
         return true;
@@ -37,7 +28,7 @@ function isEmailRegistered(object $pdo, string $email) {
     }
 }
 
-function createUser(object $pdo, string $username, string $email, string $pwd) {
-    setUser($pdo, $username, $email, $pwd);
+function createUser(object $pdo, string $firstname, string $surname, string $email, string $pwd) {
+    setUser($pdo, $firstname, $surname, $email, $pwd);
 }
 

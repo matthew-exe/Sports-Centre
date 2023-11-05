@@ -1,7 +1,7 @@
 <?PHP
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = $_POST["username"];
+    $email = $_POST["email"];
     $pwd = $_POST["pwd"];
 
     try {
@@ -12,18 +12,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // ERROR HANDLERS
         $errors = [];
 
-        if (isInputEmpty($username, $pwd)) {
+        if (isInputEmpty($email, $pwd)) {
             $errors["emptyInput"] = "Please fill in all the fields!";
         }
 
-        $result = getUser($pdo, $username);
+        $result = getUser($pdo, $email);
 
-        if (isUsernameWrong($result)) {
-            $errors["loginIncorrect"] = "Incorrect login information!";
+        if (isEmailWrong($result)) {
+            $errors["loginIncorrect"] = "Incorrect login information email!";
         }
 
-        if (!isUsernameWrong($result) && isPasswordWrong($pwd, $result["pwd"])) {
-            $errors["login"] = "Incorrect login information!";
+        if (!isEmailWrong($result) && isPasswordWrong($pwd, $result["pwd"])) {
+            $errors["login"] = "Incorrect login information password!";
         }
         
         require_once "config_session.inc.php";
@@ -35,14 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die();
         }
 
-        if ($errors) {
-            $_SESSION["loginErrors"] = $errors;
-
-            header("Location: ../login.php");
-            die();
-        }
-
-
         
         $newSessionId = session_create_id();
         $sessionId = $newSessionId . "_" . $result["id"];
@@ -50,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION["lastRegeneration"] = time();
 
         $_SESSION["userId"] = $result["id"];
-        $_SESSION["userUsername"] = htmlspecialchars($result["username"]);
+        $_SESSION["userEmail"] = htmlspecialchars($result["email"]);
         
         header("Location: ../login.php?login=success");
         $statement = null;
