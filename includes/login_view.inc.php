@@ -17,11 +17,12 @@ function checkLoginErrors() {
     }
 }
 
-function showUsername () {
+function showUsername() {
     if (isset($_SESSION["userId"])) {
-        echo "You are logged in as " . $_SESSION["userUsername"];
+        echo "You are logged in as " . $_SESSION["userEmail"];
     }
     else {
         echo "You are not logged in";
     }
 }
+

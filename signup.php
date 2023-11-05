@@ -11,7 +11,7 @@ require_once "includes/config_session.inc.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website - Signup</title>
-    <link rel="icon" href="logo.svg" type="image/x-icon"/>
+    <link rel="icon" href="images/logo.svg" type="image/x-icon"/>
     <link rel="stylesheet" href="styles.css"> <!-- If you have an external stylesheet -->
 </head>
 
@@ -21,7 +21,7 @@ require_once "includes/config_session.inc.php";
         <li>
             <a href="index.php">
             <img 
-            src="logo.svg"
+            src="images/logo.svg"
             alt="Logo"
             height=80px
             width=80px />
@@ -31,7 +31,16 @@ require_once "includes/config_session.inc.php";
             <li><a id="navbarButtons" href="login.php">Login</a></li>
             <li><a id="navbarButtons" href="signup.php">Sign up</a></li>
         <?php } else { ?>
-            <li><a id="navbarButtons" href="includes/logout.inc.php">Logout</a></li>
+            <li>
+                <a id="navbarButtons" 
+                href="profile.php">            
+                <img
+                src="images/profile.svg"
+                alt="Logo"
+                height=20px
+                width=20px />
+                </a>
+            </li>
         <?php } ?>
     </ul>
 </div>

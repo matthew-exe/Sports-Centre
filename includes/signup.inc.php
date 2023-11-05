@@ -1,7 +1,9 @@
 <?php
 
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = $_POST["username"];
+    $firstname = $_POST["firstname"];
+    $surname = $_POST["surname"];
     $email = $_POST["email"];
     $pwd = $_POST["pwd"];
 
@@ -13,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // ERROR HANDLERS
         $errors = [];
 
-        if (isInputEmpty($username, $email, $pwd)) {
+        if (isInputEmpty($firstname, $surname, $email, $pwd)) {
             $errors["emptyInput"] = "Please fill in all the fields!";
         }
 
@@ -21,12 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $errors["invalidEmail"] = "Invalid email!";
         }
 
-        if (isUsernameTaken($pdo, $username)) {
-            $errors["usernameTaken"] = "Username is already taken!";
-        }
-
         if (isEmailRegistered($pdo, $email)) {
-            $errors["emailRegistered"] = "Email is already registered";
+            $errors["emailRegistered"] = "Email is already registered!";
         }
 
         require_once "config_session.inc.php";
@@ -35,7 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION["signupErrors"] = $errors;
 
             $signupData = [
-                "username" => $username,
+                "firstname" => $firstname,
+                "surname" => $surname,
                 "email" => $email,
             ];
 
@@ -45,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die();
         }
 
-        createUser($pdo, $username, $email, $pwd);
+        createUser($pdo, $firstname, $surname, $email, $pwd);
 
 
         header("Location: ../signup.php?signup=success");
