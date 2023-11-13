@@ -5,9 +5,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $pwd = $_POST["pwd"];
 
     try {
+        //require_once "dbh.inc.php";
         require_once "dbh.inc.php";
         require_once "login_model.inc.php";
         require_once "login_controller.inc.php";
+
+        $dbh = new dbh();
 
         // ERROR HANDLERS
         $errors = [];
@@ -16,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $errors["emptyInput"] = "Please fill in all the fields!";
         }
 
-        $result = getUser($pdo, $email);
+        $result = getUser($dbh->connect(), $email);
 
         if (isEmailWrong($result)) {
             $errors["loginIncorrect"] = "Incorrect login information email!";
@@ -37,16 +40,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         
         $newSessionId = session_create_id();
-        $sessionId = $newSessionId . "_" . $result["id"];
+        $sessionId = $newSessionId . "_" . $result["userID"];
         session_id($sessionId);
         $_SESSION["lastRegeneration"] = time();
 
-        $_SESSION["userId"] = $result["id"];
+        $_SESSION["userID"] = $result["userID"];
         $_SESSION["userEmail"] = htmlspecialchars($result["email"]);
         
         header("Location: ../login.php?login=success");
+        $result = null;
         $statement = null;
-        $pdo = null;
+        $dbh = null;
 
         die();
     }

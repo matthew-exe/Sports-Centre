@@ -12,6 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         require_once "signup_model.inc.php";
         require_once "signup_controller.inc.php";
 
+        $dbh = new dbh();
+
         // ERROR HANDLERS
         $errors = [];
 
@@ -23,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $errors["invalidEmail"] = "Invalid email!";
         }
 
-        if (isEmailRegistered($pdo, $email)) {
+        if (isEmailRegistered($dbh->connect(), $email)) {
             $errors["emailRegistered"] = "Email is already registered!";
         }
 
@@ -44,12 +46,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die();
         }
 
-        createUser($pdo, $firstname, $surname, $email, $pwd);
+        createUser($dbh->connect(), $firstname, $surname, $email, $pwd);
 
 
         header("Location: ../signup.php?signup=success");
 
-        $pdo = null;
+        $dbh = null;
         $statement = null;
         die();
 

@@ -13,7 +13,7 @@ session_set_cookie_params([
 
 session_start();
 
-if (isset($_SESSION["userId"])) {
+if (isset($_SESSION["userID"])) {
     if (!isset($_SESSION["lastRegeneration"])) { // if first time making session
         regenerateSessionIdLoggedIn();
     }
@@ -43,7 +43,7 @@ function regenerateSessionIdLoggedIn() {
     session_regenerate_id(true);
 
     $newSessionId = session_create_id();
-    $sessionId = $newSessionId . "_" . $_SESSION["userId"];
+    $sessionId = $newSessionId . "_" . $_SESSION["userID"];
     session_id($sessionId);
 
     $_SESSION["lastRegeneration"] = time();

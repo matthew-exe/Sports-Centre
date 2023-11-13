@@ -7,22 +7,22 @@ function checkLoginErrors() {
         $errors = $_SESSION["loginErrors"];
         
         foreach ($errors as $error) {
-            echo "<p>$error</p>";
+            echo "<p style='color: red'>$error</p>";
         }
 
         unset($_SESSION["loginErrors"]);
     }
     else if (isset($_GET["login"]) && $_GET["login"] === "success") {
-        echo "<p>Login Successful!</p>";
+        echo "<p style='color: green'>Login Successful!</p>";
     }
 }
 
-function showUsername() {
-    if (isset($_SESSION["userId"])) {
-        echo "You are logged in as " . $_SESSION["userEmail"];
-    }
-    else {
-        echo "You are not logged in";
-    }
-}
+// function showUsername() {
+//     if (isset($_SESSION["userID"])) {
+//         echo "You are logged in as " . $_SESSION["userEmail"];
+//     }
+//     else {
+//         echo "You are not logged in";
+//     }
+// }
 

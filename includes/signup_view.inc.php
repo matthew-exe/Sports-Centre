@@ -8,27 +8,64 @@ function signupInputs() {
     // this function will fill in the signup form so it holds the user data, it will not hold if the signup was successful
 
     if (isset($_SESSION["signupData"]["firstname"]) && !isset($_GET["signup"])) {
-        echo '<input type="text"name="firstname" placeholder="Firstname" value="' . $_SESSION["signupData"]["firstname"] . '"><br>';
+        echo '
+        <div class="form-group">
+            <h4 class="text-center font-weight-bold">Signup</h4>
+            <label for="firstname">Firstname</label>
+            <input type="text" class="form-control mb-2" name="firstname" placeholder="Enter firstname" value="' . $_SESSION["signupData"]["firstname"] . '">
+        </div>
+        ';
     } 
     else {
-        echo '<input type="text"name="firstname" placeholder="Firstname" ><br>';
+        echo '
+        <div class="form-group">
+            <h4 class="text-center font-weight-bold">Signup</h4>
+            <label for="firstname">Firstname</label>
+            <input type="text" class="form-control mb-2" name="firstname" placeholder="Enter firstname">
+        </div>
+        ';
     }
 
     if (isset($_SESSION["signupData"]["surname"]) && !isset($_GET["signup"])) {
-        echo '<input type="text"name="surname" placeholder="Surname" value="' . $_SESSION["signupData"]["surname"] . '"><br>';
+        echo '
+        <div class="form-group">
+            <label for="surname">Surname</label>
+            <input type="text" class="form-control mb-2" name="surname" placeholder="Enter surname" value="' . $_SESSION["signupData"]["surname"] . '">
+        </div>
+        ';
     } 
     else {
-        echo '<input type="text"name="surname" placeholder="Surname" ><br>';
+        echo '
+        <div class="form-group">
+            <label for="surname">Surname</label>
+            <input type="text" class="form-control mb-2" name="surname" placeholder="Enter surname">
+        </div>
+        ';
     }
 
     if (isset($_SESSION["signupData"]["email"]) && !isset($_SESSION["signupErrors"]["emailRegistered"]) && !isset($_SESSION["signupErrors"]["invalidEmail"])  && !isset($_GET["signup"])) {
-        echo '<input type="text"name="email" placeholder="Email" value="' . $_SESSION["signupData"]["email"] . '"><br>';
+        echo '
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control mb-2" name="email" placeholder="Enter email" value="' . $_SESSION["signupData"]["email"] . '">
+        </div>
+        ';
     } 
     else {
-        echo '<input type="text"name="email" placeholder="Email" ><br>';
+        echo '
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control mb-2" name="email" placeholder="Enter email">
+        </div>
+        ';
     }
 
-    echo '<input type="password" name="pwd" placeholder="Password" ><br><br>';
+    echo '
+    <div class="form-group">
+        <label for="pwd">Password</label>
+        <input type="password" class="form-control mb-4" name="pwd" placeholder="Password">
+    </div>
+    ';
 
     unset($_SESSION["signupData"]);
 }
@@ -38,13 +75,13 @@ function checkSignupErrors() {
         $errors = $_SESSION["signupErrors"];
 
     foreach ($errors as $error) {
-        echo "<p>$error</p>";
+        echo "<p style='color: red'>$error</p>";
     }
 
     unset($_SESSION["signupErrors"]);
     }
     else if (isset($_GET["signup"]) && $_GET["signup"] === "success") {
-        echo "<p>Sign Up Successful!</p>";
+        echo "<p style='color: green'>Sign Up Successful!</p>";
     }
 }
 

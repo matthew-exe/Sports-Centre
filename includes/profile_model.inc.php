@@ -1,43 +1,43 @@
 <?php
 
-function getUser(object $pdo, string $id) {
-    $query = "SELECT * FROM users WHERE id = :id;";
+function getUser(object $pdo, string $userID) {
+    $query = "SELECT * FROM users WHERE userID = :userID;";
     $statement = $pdo->prepare($query);
-    $statement->bindValue("id", $id);
+    $statement->bindValue("userID", $userID);
     $statement->execute();
 
     return $statement->fetch(PDO::FETCH_ASSOC);
 }
 
-function updateFirstname(object $pdo, string $id, string $firstname) {
-    $query = "UPDATE users SET firstname = :firstname WHERE id = :id;";
+function updateFirstname(object $pdo, string $userID, string $firstname) {
+    $query = "UPDATE users SET firstname = :firstname WHERE userID = :userID;";
     $statement = $pdo->prepare($query);
 
     $statement->bindValue("firstname", $firstname);
-    $statement->bindValue("id", $id);
+    $statement->bindValue("userID", $userID);
     $statement->execute();
 }
 
-function updateSurname(object $pdo, string $id, string $surname) {
-    $query = "UPDATE users SET surname = :surname WHERE id = :id;";
+function updateSurname(object $pdo, string $userID, string $surname) {
+    $query = "UPDATE users SET surname = :surname WHERE userID = :userID;";
     $statement = $pdo->prepare($query);
 
     $statement->bindValue("surname", $surname);
-    $statement->bindValue("id", $id);
+    $statement->bindValue("userID", $userID);
     $statement->execute();
 }
 
-function updateEmail(object $pdo, string $id, string $email) {
-    $query = "UPDATE users SET email = :email WHERE id = :id;";
+function updateEmail(object $pdo, string $userID, string $email) {
+    $query = "UPDATE users SET email = :email WHERE userID = :userID;";
     $statement = $pdo->prepare($query);
 
     $statement->bindValue("email", $email);
-    $statement->bindValue("id", $id);
+    $statement->bindValue("userID", $userID);
     $statement->execute();
 }
 
-function updatePassword(object $pdo, string $id, string $pwd) {
-    $query = "UPDATE users SET pwd = :pwd WHERE id = :id;";
+function updatePassword(object $pdo, string $userID, string $pwd) {
+    $query = "UPDATE users SET pwd = :pwd WHERE userID = :userID;";
     $statement = $pdo->prepare($query);
 
     $options = [
@@ -48,6 +48,6 @@ function updatePassword(object $pdo, string $id, string $pwd) {
 
 
     $statement->bindValue("pwd", $hashedPwd);
-    $statement->bindValue("id", $id);
+    $statement->bindValue("userID", $userID);
     $statement->execute();
 }

@@ -1,136 +1,16 @@
-*{
-margin: 0;
-padding:0;
-box-sizing:border-box;
-}
-    
-.navbar ul{
-  display:flex;
-  justify-content:flex-end;
-  align-items:center;
-  background-color: #023E8A;
-  height: 75px;
-  list-style-type: none
-  }
-
-.navbar ul li{
-margin: 0 15px;
-font-size:20px;
-}
-
-.navbar ul li:nth-child(1){
-margin-right:auto;
-font-size:30px;
-}
-
-.navbar ul li a{
-text-decoration:none;
-color:white;
-}
-
-/* Adjust the nav bar to vertical when less then 600px (Not finished)
-
-@media screen and (max-width: 600px) {
-  .navbar ul {
-    flex-direction: column;
-    width: 120px;
-    height: 100vh;
-  }
-
-  .navbar ul li {
-    margin-bottom:10px;
-    font-size:30px;
-  
-  }
-
-  .navbar ul li:nth-child(){
-    margin-bottom:auto;
-    font-size:30px;
-  }
-}
-*/
-
-
-#navbarButtons {
-    align-items: center;
-    background-color: #0077B6;
-    border: 0;
-    border-radius: 100px;
-    box-sizing: border-box;
-    color: #ffffff;
-    cursor: pointer;
-    display: inline-flex;
-    font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    justify-content: center;
-    line-height: 20px;
-    max-width: 480px;
-    min-height: 40px;
-    min-width: 0px;
-    overflow: hidden;
-    padding: 0px;
-    padding-left: 20px;
-    padding-right: 20px;
-    text-align: center;
-    touch-action: manipulation;
-    transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
-    user-select: none;
-    -webkit-user-select: none;
-    vertical-align: middle;
-}
-
-#navbarButtons:hover,
-#navbarButtons:focus { 
-  background-color: #16437E;
-  color: #ffffff;
-}
-
-#navbarButtons:active {
-  background: #09223b;
-  color: rgb(255, 255, 255, .7);
-}
-
-#navbarButtons:disabled { 
-  cursor: not-allowed;
-  background: rgba(0, 0, 0, .08);
-  color: rgba(0, 0, 0, .3);
+:root {
+    --primary: #2F1843;
+    --secondary: #B3C9EF;
+    --accent: #2458B2;
 }
 
 
-.registrationForms {
-  display: flex;
-  text-align: center;
-  width: auto;
-  height: auto;
-  background: white;
-  border: 0 none;
-  padding: 10px 10px;
-  border-radius: 20px;
-  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-  box-sizing: border-box;
-  position: fixed;
-  z-index: 1000;
-  top: 35%;
-  left: 50%;
-  transform: translateX(-50%);
+.cards-wrapper{
+    display: flex;
 }
 
-.registrationForms input {
-  display: inline-block;
-  width: 350px;
-  background: #0077B6;
-  font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  color: white;
-  border: 0 none;
-  border-radius: 15px;
-  cursor: pointer;
-  padding: 10px 5px;
-  margin: 10px 5px;
+.card {
+    margin: 0.5rem;
+    width: calc(100%/3);
 }
 
-.registrationForms ::placeholder {
-  color: white;
-  opacity: 50%;
-}
