@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 function searchEvents(object $pdo, string $search) {
     $search = '%' . $search . '%';
-    $query = "SELECT * FROM events WHERE name LIKE :search OR description LIKE :search;";
+    $query = "SELECT * FROM events WHERE name LIKE :search OR shortDescription LIKE :search OR longDescription LIKE :search;";
     $statement = $pdo->prepare($query);
     $statement->bindValue("search", $search);
     $statement->execute();

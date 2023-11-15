@@ -2,7 +2,8 @@
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $eventName = $_POST["eventName"];
-    $eventDescription = $_POST["eventDescription"];
+    $shortDescription = $_POST["shortDescription"];
+    $longDescription = $_POST["longDescription"];
     $eventHost = $_POST["eventHost"];
     $eventImage = $_POST["eventImage"];
     $eventCapacity = $_POST["eventCapacity"];
@@ -18,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // ERROR HANDLERS
         $errors = [];
 
-        if (isInputEmpty($eventName, $eventDescription, $eventHost, $eventImage, $eventCapacity, $eventTime, $eventDate)) {
+        if (isInputEmpty($eventName, $shortDescription, $longDescription, $eventHost, $eventImage, $eventCapacity, $eventTime, $eventDate)) {
             $errors["emptyInput"] = "Please fill in all the fields!";
         }
 
@@ -29,7 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $eventData = [
                 "name" => $eventName,
-                "description" => $eventDescription,
+                "shortDescription" => $shortDescription,
+                "longDescription" => $longDescription,
                 "host" => $eventHost,
                 "image" => $eventImage,
                 "capacity" => $eventCapacity,
@@ -45,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $dbh = new dbh();
 
-        createEvent($dbh->connect(), $eventName, $eventDescription, $eventHost, $eventImage, $eventCapacity, $eventTime, $eventDate);
+        createEvent($dbh->connect(), $eventName, $shortDescription, $longDescription, $eventHost, $eventImage, $eventCapacity, $eventTime, $eventDate);
 
         header("Location: ../admin_portal.php?eventCreation=success");
 

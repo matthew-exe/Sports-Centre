@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $_SESSION["userID"] = $result["userID"];
         $_SESSION["userEmail"] = htmlspecialchars($result["email"]);
+        $_SESSION["userGroup"] = getUserGroup($dbh->connect(), $result["userID"]);
         
         header("Location: ../login.php?login=success");
         $result = null;

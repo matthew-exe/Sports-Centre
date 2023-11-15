@@ -22,7 +22,7 @@ function displayEvents() {
                 <img src="' . $event["image"] . '" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $event["name"] . '</h5>
-                <p class="card-text">' . $event["description"] . '</p>
+                <p class="card-text">' . $event["shortDescription"] . '</p>
                 <form action="eventinfo.php" method="get">
                 <button type="submit" class="btn btn-primary" name="eventID" id="moreInfo" value="' . $event["eventID"] . '">More info</button>
                 </form>
@@ -37,7 +37,7 @@ function displayEvents() {
                 <img src="' . $event["image"] . '" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $event["name"] . '</h5>
-                <p class="card-text">' . $event["description"] . '</p>
+                <p class="card-text">' . $event["shortDescription"] . '</p>
                 <form action="eventinfo.php" method="get">
                 <button type="submit" class="btn btn-primary" name="eventID" id="moreInfo" value="' . $event["eventID"] . '">More info</button>
                 </form>
@@ -52,7 +52,7 @@ function displayEvents() {
                 <img src="' . $event["image"] . '" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $event["name"] . '</h5>
-                <p class="card-text">' . $event["description"] . '</p>
+                <p class="card-text">' . $event["shortDescription"] . '</p>
                 <form action="eventinfo.php" method="get">
                 <button type="submit" class="btn btn-primary" name="eventID" id="moreInfo" value="' . $event["eventID"] . '">More info</button>
                 </form>

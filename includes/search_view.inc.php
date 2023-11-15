@@ -24,7 +24,7 @@ function displaySearchedEvents(string $searchInput) {
                 <img src="' . $result["image"] . '" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $result["name"] . '</h5>
-                <p class="card-text">' . $result["description"] . '</p>
+                <p class="card-text">' . $result["shortDescription"] . '</p>
                 <form action="eventinfo.php" method="get">
                 <button type="submit" class="btn btn-primary" name="eventID" id="moreInfo" value="' . $result["eventID"] . '">More info</button>
                 </form>
@@ -38,7 +38,7 @@ function displaySearchedEvents(string $searchInput) {
                 <img src="' . $result["image"] . '" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $result["name"] . '</h5>
-                <p class="card-text">' . $result["description"] . '</p>
+                <p class="card-text">' . $result["shortDescription"] . '</p>
                 <form action="eventinfo.php" method="get">
                 <button type="submit" class="btn btn-primary" name="eventID" id="moreInfo" value="' . $result["eventID"] . '">More info</button>
                 </form>
@@ -52,7 +52,7 @@ function displaySearchedEvents(string $searchInput) {
                 <img src="' . $result["image"] . '" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $result["name"] . '</h5>
-                <p class="card-text">' . $result["description"] . '</p>
+                <p class="card-text">' . $result["shortDescription"] . '</p>
                 <form action="eventinfo.php" method="get">
                 <button type="submit" class="btn btn-primary" name="eventID" id="moreInfo" value="' . $result["eventID"] . '">More info</button>
                 </form>

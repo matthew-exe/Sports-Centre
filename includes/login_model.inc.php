@@ -10,3 +10,15 @@ function getUser(object $pdo, string $email) {
 
     return $statement->fetch(PDO::FETCH_ASSOC);
 }
+
+function getUserGroup(object $pdo, string $userID) {
+    $query = "SELECT groups.groupName
+    FROM groups, group_users
+    WHERE group_users.userID = :userID
+         and groups.groupID = group_users.groupID;";
+    $statement = $pdo->prepare($query);
+    $statement->bindValue("userID", $userID);
+    $statement->execute();
+
+    return $statement->fetchColumn();
+}

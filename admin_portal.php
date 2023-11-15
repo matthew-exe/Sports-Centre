@@ -1,8 +1,11 @@
 <?php
 require_once "includes/config_session.inc.php";
+if (!isset($_SESSION["userID"]) || $_SESSION["userGroup"] != "admin") {
+    header("Location: index.php");
+    die();
+}
 require_once "includes/admin_portal_view.inc.php";
 ?>
-
 
 
 <!DOCTYPE html>
@@ -31,17 +34,24 @@ require_once "includes/admin_portal_view.inc.php";
         </button>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <?php if (!isset($_SESSION["userID"])) { ?>
-              <div class="navbar-nav mb-0 ms-auto">
+            <?php if (isset($_SESSION["userID"]) && $_SESSION["userGroup"] == "admin") { ?>
+                <div class="navbar-nav mb-0 ms-auto">
                 <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
-                <a class="btn btn-light text-dark ms-3" href="login.php">Login</a>
-                <a class="btn btn-light text-dark ms-3" href="signup.php">Signup</a>
+                <a class="btn btn-light text-dark ms-3" href="admin_portal.php">Admin Portal</a>                
+                <a class="btn btn-light text-dark ms-3" href="profile.php">Profile</a>  
+                <a class="btn btn-light text-dark ms-3" href="includes/logout.inc.php">Logout</a>
               </div>
+            <?php } elseif (isset($_SESSION["userID"])) {?>
+                <div class="navbar-nav mb-0 ms-auto">
+                <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
+                <a class="btn btn-light text-dark ms-3" href="profile.php">Profile</a>  
+                <a class="btn btn-light text-dark ms-3" href="includes/logout.inc.php">Logout</a>
+              </div>               
             <?php } else { ?>
                 <div class="navbar-nav mb-0 ms-auto">
                 <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
-                <a class="btn btn-light text-dark ms-3" href="profile.php">Profile</a>                
-                <a class="btn btn-light text-dark ms-3" href="includes/logout.inc.php">Logout</a>
+                <a class="btn btn-light text-dark ms-3" href="login.php">Login</a>
+                <a class="btn btn-light text-dark ms-3" href="signup.php">Signup</a>
               </div>
             <?php } ?>
         </div>
@@ -72,17 +82,22 @@ require_once "includes/admin_portal_view.inc.php";
                         <li class="mb-2"></select></li>
                         <li><label for="eventCapacity">Event Capacity</label></li>
                         <li class="mb-2"><input type="text" name="eventCapacity" placeholder="Event Capacity"></li>
-                        <li><label for="eventDescription">Event Description</label></li>
-                        <li class="mb-2"><input type="textarea" name="eventDescription" placeholder="Event Decription..."></li>
+                        <li class="mb-2"><label for="eventImage">Event Image</label></li>
+                        <li class="mb-2"><select name="eventImage">
+                            <option value="images/bighenchman.jpg">Big Hench Man</option>
+                            <option value="images/hellokitty.jpg">Hello Kitty</option>
+                            <option value="images/wegogym.jpg">We Go Gym</option>
+                            </select></li>
+                    </ol>
                 </div>
-                <div class="col">
-                <label for="eventImage">Event Image</label>
-                    <select name="eventImage">
-                        <option value="images/bighenchman.jpg">Big Hench Man</option>
-                        <option value="images/hellokitty.jpg">Hello Kitty</option>
-                        <option value="images/wegogym.jpg">We Go Gym</option>
-                    </select>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="col mt-2">
+                    <ol class="mt-1" style="list-style-type: none">
+                        <li><label for="shortDescription">Short Description For This Event</label></li>
+                        <li class="mb-2"><input style="height: 75px; width: 300px" type="text" name="shortDescription" placeholder="Enter short Decription"></li>
+                        <li class="mb-2"><label for="longDescription">Long Description For This Event</label></li>
+                        <li class="mb-2"><textarea style="height: 150px; width: 300px" name="longDescription" placeholder="Enter Long Decription"></textarea></li>
+                        <li class="mb-2"><button type="submit" class="ml-1 mt-3 btn btn-primary">Submit</button></li>
+                    </ol>
                     <?php 
                     checkEventCreationErrors();
                     ?>
@@ -91,32 +106,29 @@ require_once "includes/admin_portal_view.inc.php";
         </div>
     </form>
 
-    <!-- <div class="container">
-        <div class="row bg-light text-dark3 border border-2 border-primary rounded-3">
-            <form>
-                <div class="col">balls
-                    <h1>Create Event:</h1>
-                    <label for="eventName">Event Name</label>
-                    <input type="text" name="eventName" placeholder="Event Name...">
-                    <label for="eventDate">Event Date</label>
-                    <input type="date" name="evenDate">
-                    <label for="eventTime">Event Time</label>
-                    <input type="time" name="eventTime">
-                    <label for="eventHost">Event Host</label>
-                    <select name="eventHost">
-                        <option value="Jamie">Jamie</option>
-                        <option value="Russell">Russell</option>
-                        <option value="Matt">Matt</option>
-                        <option value="Felix">Felix</option>
-                        <option value="Gab">Gab</option>
-                    </select>
-                    <label for="eventCapacity">Event Capacity</label>
-                    <input type="text" name="eventCapacity" placeholder="Event Capacity">
-                    <label for="eventDescription">Event Name</label>
-                    <input type="textarea" name="eventDescription" placeholder="Event Decription..."> 
+    <section class="container-fluid">
+        <section class="row justify-content-center align-items-center vw-90 pt-5">
+            <section class="col-12 col-sm-6 col-md-8 border border-3 border-primary rounded-3">
+            <h1 class="mt-2" >Search Users:</h1>
+            <form action="admin_portal.php" method="get">
+                <div class="input-group mb-3 mt-3">
+                    <input type="text" name="searchInput" class="form-control" placeholder="Search" aria-label="search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                    </div>
                 </div>
-                <div class="col">dick</div>
             </form>
-        </div> -->
+    
+                <?php
+                    if (isset($_GET["searchInput"])) {
+                        displaySearchedUsers($_GET["searchInput"]);
+                    }
+                    else {
+                        displayUsers();
+                    }
+                ?>
+            </section>
+        </section>
+    </section>
 
 </body>

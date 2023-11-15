@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         createUser($dbh->connect(), $firstname, $surname, $email, $pwd);
-
+        setGroup($dbh->connect(), getUserID($dbh->connect(), $email)); // probs should change this to go to the controller first!!!!!!
 
         header("Location: ../signup.php?signup=success");
 

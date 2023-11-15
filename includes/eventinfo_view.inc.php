@@ -19,10 +19,10 @@ function displayExpandedEvent(int $eventID) {
                 <div>
                     <h1 class="mt-3 mb-1">' . $event["name"] . '</h1>
                     <p class="mb-3">Hosted by: ' . $event["host"] . '</p>
-                    <p class="mb-4">' . $event["description"] . '</p>
+                    <p class="mb-4">' . $event["longDescription"] . '</p>
                     <p class="mb-4">Capacity: ' . $event["capacity"] . '</p>
-                    <p class="mb-2">Time: ' . $event["eventTime"] . '</p>
-                    <p class="mb-4">Date: ' . $event["eventDate"] . '</p>
+                    <p class="mb-2">Time: ' . date("H:i", strtotime($event["eventTime"])) . '</p>
+                    <p class="mb-4">Date: ' . date("d/m/Y", strtotime($event["eventDate"])) . '</p>
                     ' . checkBookingErrors() . '';
 
     if (isset($_SESSION["userID"])) {

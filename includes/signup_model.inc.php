@@ -31,3 +31,19 @@ function setUser(object $pdo, string $firstname, string $surname, string $email,
 
     $statement->execute();
 }
+
+function getUserID(object $pdo, string $email) {
+    $query = "SELECT userID FROM users WHERE email = :email;";
+    $statement = $pdo->prepare($query);
+    $statement->bindValue("email", $email);
+    $statement->execute();
+
+    return $statement->fetchColumn();
+}
+
+function setGroup(object $pdo, string $userID) {
+    $query = "INSERT INTO group_users (groupID, userID) VALUES (1, :userID);";
+    $statement = $pdo->prepare($query);
+    $statement->bindValue("userID", $userID);
+    $statement->execute();
+}
