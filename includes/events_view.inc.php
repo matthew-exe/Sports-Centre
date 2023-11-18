@@ -17,8 +17,8 @@ function displayEvents() {
             if ($counter == 1) {
                 $output = '
                 <div class="row my-5">
-                <div class="card-group">
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="width: 18rem;">
+                <div class="card-group justify-content-start">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
                 <img src="' . $event["image"] . '" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $event["name"] . '</h5>
@@ -33,7 +33,7 @@ function displayEvents() {
             }
             else if ($counter != 1 && $counter < 4) {
                 $output .= '
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="width: 18rem;">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
                 <img src="' . $event["image"] . '" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $event["name"] . '</h5>
@@ -48,7 +48,7 @@ function displayEvents() {
             }
             else {
                 $output .= '
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="width: 18rem;">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
                 <img src="' . $event["image"] . '" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $event["name"] . '</h5>

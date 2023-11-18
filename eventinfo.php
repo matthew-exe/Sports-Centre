@@ -16,8 +16,7 @@ require_once "includes/booking_view.inc.php";
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.min.css">
 </head>
 
 <!-- Navbar -->
@@ -27,7 +26,7 @@ require_once "includes/booking_view.inc.php";
             <img src="images/logo.svg" alt="logo" height="54px" d-inline-block align-text-top>
         </a>
 
-        <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler bg-primary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon text-black pt-1">=</span>
         </button>
 
@@ -63,5 +62,8 @@ require_once "includes/booking_view.inc.php";
             displayExpandedEvent($_GET["eventID"]);
         }
     ?>
-
 </body>
+
+
+
+</html>

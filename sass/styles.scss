@@ -1,0 +1,17 @@
+/* Test colours
+$primary: #4D6FAC;
+$secondary: #B3C9EF;
+$info: #2458B2; 
+*/
+
+// custom variables for colour scheme
+$primary: #023E8A;
+$secondary: #0077B6;
+$info: #90E0EF;
+$blue-100: #CAF0F8;
+// add variables here from bootstrap/scss/...
+
+
+
+// import bootstrap, also important to keep this at the end of file
+@import '../node_modules/bootstrap/scss/bootstrap';

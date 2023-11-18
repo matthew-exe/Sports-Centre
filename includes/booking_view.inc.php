@@ -39,8 +39,8 @@ function displayBookings() {
             if ($counter == 1) {
                 $output = '
                 <div class="row my-5">
-                <div class="card-group">
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="width: 18rem;">
+                <div class="card-group justify-content-start">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
                 <img src="' . $event["image"] . '" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $event["name"] . '</h5>
@@ -62,7 +62,7 @@ function displayBookings() {
             }
             else if ($counter != 1 && $counter < 4) {
                 $output .= '
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="width: 18rem;">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
                 <img src="' . $event["image"] . '" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $event["name"] . '</h5>
@@ -83,18 +83,18 @@ function displayBookings() {
             }
             else {
                 $output .= '
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="width: 18rem;">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
                 <img src="' . htmlspecialchars($event["image"]) . '" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . htmlspecialchars($event["name"]) . '</h5>
                 <p class="card-text">' . htmlspecialchars($event["shortDescription"]) . '</p>
                 <div class="d-flex justify-content-between">
                     <form action="eventinfo.php" method="get">
-                        <button type="submit" class="btn btn-primary" name="eventID" id="moreInfo" value="' . htmlspecialchars($event["eventID"]) . '">More info</button>
+                        <button type="submit" class="btn btn-primary" name="eventID" id="moreInfo" value="' . $event["eventID"] . '">More info</button>
                     </form>
 
                     <form action="includes/cancel_booking.inc.php" method="post">
-                        <button type="submit" class="btn btn-primary" name="eventID" id="cancelBooking" value="' . htmlspecialchars($event["eventID"]) . '">Cancel Booking</button>
+                        <button type="submit" class="btn btn-primary" name="eventID" id="cancelBooking" value="' . $event["eventID"] . '">Cancel Booking</button>
                     </form>
                 </div>
                 </div>

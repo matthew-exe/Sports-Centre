@@ -50,8 +50,8 @@ function displayUsers() {
             if ($counter == 1) {
                 $output = '
                 <div class="row my-5">
-                <div class="card-group">
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="width: 18rem;">
+                <div class="card-group justify-content-start">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
                 <img src="images/user_icon.png" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $user["firstname"] . " " . $user["surname"] . '</h5>
@@ -66,7 +66,7 @@ function displayUsers() {
             }
             else if ($counter != 1 && $counter < 4) {
                 $output .= '
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="width: 18rem;">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
                 <img src="images/user_icon.png" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $user["firstname"] . " " . $user["surname"] . '</h5>
@@ -81,7 +81,7 @@ function displayUsers() {
             }
             else {
                 $output .= '
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="width: 18rem;">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
                 <img src="images/user_icon.png" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $user["firstname"] . " " . $user["surname"] . '</h5>
@@ -123,7 +123,7 @@ function displaySearchedUsers(string $searchInput) {
                 $output = '
                 <div class="row my-5">
                 <div class="card-group">
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="width: 18rem;">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
                 <img src="images/user_icon.png" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $result["firstname"] . " " . $result["surname"] . '</h5>
@@ -138,7 +138,7 @@ function displaySearchedUsers(string $searchInput) {
             }
             else if ($counter != 1 && $counter < 4) {
                 $output .= '
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="width: 18rem;">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
                 <img src="images/user_icon.png" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $result["firstname"] . " " . $result["surname"] . '</h5>
@@ -153,7 +153,7 @@ function displaySearchedUsers(string $searchInput) {
             }
             else {
                 $output .= '
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="width: 18rem;">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
                 <img src="images/user_icon.png" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">' . $result["firstname"] . " " . $result["surname"] . '</h5>

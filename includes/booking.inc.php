@@ -5,7 +5,7 @@ require_once "config_session.inc.php";
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["userID"])) {
 
     try {
-        $eventID = $_POST["eventID"];
+        $eventID = intval($_POST["eventID"]); // getting int val need to change later!!!!
 
         require_once "dbh.inc.php";
         require_once "booking_model.inc.php";

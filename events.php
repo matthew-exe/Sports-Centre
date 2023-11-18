@@ -15,8 +15,7 @@ require_once "includes/events_view.inc.php";
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.min.css">
 </head>
 
 <!-- Navbar -->
@@ -61,18 +60,32 @@ require_once "includes/events_view.inc.php";
     <section class="container-fluid">
         <section class="row justify-content-center align-items-center vw-90 pt-5">
             <section class="col-12 col-sm-6 col-md-8 border border-3 border-primary rounded-3">
-            <form action="events.php" method="get">
-                <div class="input-group mb-3 mt-3">
-                    <input type="text" name="searchInput" class="form-control" placeholder="Search" aria-label="search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit">Submit</button>
-                    </div>
+            <form action="events.php" method="get" id="searchForm">
+            <div class="input-group mb-3 mt-3">
+                <input type="text" name="searchInput" class="form-control" placeholder="Search" aria-label="search" aria-describedby="basic-addon2">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Toggle Options
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="filters">
+                        <li><a class="dropdown-item" href="#" data-filter="closestdate">Sort by closest date</a></li>
+                        <li><a class="dropdown-item" href="#" data-filter="notfullybooked">Exclude Fully Booked Events</a></li>
+                    </ul>
                 </div>
-            </form>
+                <input type="date" class="form-control" id="dateFilter" name="dateFilter">
+                <div class="input-group-append">
+                    <button class="btn btn-primary ms-2" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+
     
                 <?php
-                    if (isset($_GET["searchInput"])) {
-                        displaySearchedEvents($_GET["searchInput"]);
+                    if (isset($_GET["searchInput"]) || isset($_GET["dateFilter"]) || isset($_GET["filters"])) {
+                        $searchInput = isset($_GET["searchInput"]) ? $_GET["searchInput"] : null;
+                        $dateFilter = isset($_GET["dateFilter"]) ? $_GET["dateFilter"] : null;
+                        $filters = isset($_GET["filters"]) ? $_GET["filters"] : null;
+                        displaySearchedEvents($searchInput, $dateFilter, $filters);
                     }
                     else {
                         displayEvents();
@@ -84,9 +97,43 @@ require_once "includes/events_view.inc.php";
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault();
 
+        let filters = [];
+        document.querySelectorAll('#filters .dropdown-item.active').forEach(filter => {
+            filters.push(filter.dataset.filter);
+        });
 
+        const searchInput = document.querySelector('input[name="searchInput"]').value;
+        const dateFilter = document.getElementById('dateFilter').value;
+
+        const queryParams = new URLSearchParams();
+        queryParams.append('searchInput', searchInput);
+        queryParams.append('dateFilter', dateFilter);
+        filters.forEach(filter => {
+            queryParams.append('filters[]', filter);
+        });
+
+        const queryString = queryParams.toString();
+        const actionUrl = this.getAttribute('action') + '?' + queryString;
+
+        window.location.href = actionUrl;
+    });
+
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            item.classList.toggle('active');
+        });
+    });
+</script>
 
 </body>
 
+
 </html>
+

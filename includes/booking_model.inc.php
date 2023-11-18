@@ -12,7 +12,7 @@ function getEvent(object $pdo, string $eventID) {
 }
 
 function getBookings(object $pdo, string $eventID) {
-    $query = "SELECT * FROM bookings WHERE eventID = :eventID;";
+    $query = "SELECT * FROM event_bookings WHERE eventID = :eventID;";
     $statement = $pdo->prepare($query);
     $statement->bindValue("eventID", $eventID);
     $statement->execute();
@@ -21,7 +21,7 @@ function getBookings(object $pdo, string $eventID) {
 }
 
 function getBooking(object $pdo, string $userID, string $eventID) {
-    $query = "SELECT bookingID FROM bookings WHERE eventID = :eventID AND userID = :userID;";
+    $query = "SELECT bookingID FROM event_bookings WHERE eventID = :eventID AND userID = :userID;";
     $statement = $pdo->prepare($query);
     $statement->bindValue("userID", $userID);
     $statement->bindValue("eventID", $eventID);
@@ -30,8 +30,8 @@ function getBooking(object $pdo, string $userID, string $eventID) {
     return $statement->fetch(PDO::FETCH_ASSOC);
 }
 
-function getUserBookings(object $pdo, int $userID) { // FOR SOME REASON THREW AN ERROR AS STRING AS THE USERID????
-    $query = "SELECT * FROM bookings WHERE userID = :userID;";
+function getUserBookings(object $pdo, string $userID) { // FOR SOME REASON THREW AN ERROR AS STRING AS THE USERID????
+    $query = "SELECT * FROM event_bookings WHERE userID = :userID;";
     $statement = $pdo->prepare($query);
     $statement->bindValue("userID", $userID);
     $statement->execute();
@@ -40,7 +40,7 @@ function getUserBookings(object $pdo, int $userID) { // FOR SOME REASON THREW AN
 }
 
 function createBooking(object $pdo, string $userID, string $eventID) {
-    $query = "INSERT INTO bookings (userID, eventID) VALUES (:userID, :eventID);";
+    $query = "INSERT INTO event_bookings (userID, eventID) VALUES (:userID, :eventID);";
     $statement = $pdo->prepare($query);
     $statement->bindValue("userID", $userID);
     $statement->bindValue("eventID", $eventID);
@@ -48,7 +48,7 @@ function createBooking(object $pdo, string $userID, string $eventID) {
 }
 
 function deleteBooking(object $pdo, int $userID, int $eventID) {
-    $query = "DELETE FROM bookings WHERE userID = :userID AND eventID = :eventID";
+    $query = "DELETE FROM event_bookings WHERE userID = :userID AND eventID = :eventID";
     $statement = $pdo->prepare($query);
     $statement->bindValue("userID", $userID);
     $statement->bindValue("eventID", $eventID);
