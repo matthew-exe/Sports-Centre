@@ -1,12 +1,21 @@
 <?php
 
-// FILE USED TO SHOW EVERYTHING
+function checkSignupErrors() {
+    if (isset($_SESSION["signupErrors"])) {
+        $errors = $_SESSION["signupErrors"];
 
-declare(strict_types=1); // makes variables have a type
+    foreach ($errors as $error) {
+        echo "<p style='color: red'>$error</p>";
+    }
 
-function signupInputs() {
-    // this function will fill in the signup form so it holds the user data, it will not hold if the signup was successful
+    unset($_SESSION["signupErrors"]);
+    }
+    else if (isset($_GET["signup"]) && $_GET["signup"] === "success") {
+        echo "<p style='color: green'>Sign Up Successful!</p>";
+    }
+}
 
+function displaySignupInputs() {
     if (isset($_SESSION["signupData"]["firstname"]) && !isset($_GET["signup"])) {
         echo '
         <div class="form-group">
@@ -68,20 +77,5 @@ function signupInputs() {
     ';
 
     unset($_SESSION["signupData"]);
-}
-
-function checkSignupErrors() {
-    if (isset($_SESSION["signupErrors"])) {
-        $errors = $_SESSION["signupErrors"];
-
-    foreach ($errors as $error) {
-        echo "<p style='color: red'>$error</p>";
-    }
-
-    unset($_SESSION["signupErrors"]);
-    }
-    else if (isset($_GET["signup"]) && $_GET["signup"] === "success") {
-        echo "<p style='color: green'>Sign Up Successful!</p>";
-    }
 }
 

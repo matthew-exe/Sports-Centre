@@ -1,11 +1,10 @@
 <?php
-require_once "includes/config_session.inc.php";
+require_once "includes/configs/session.inc.php";
 if (!isset($_SESSION["userID"])) {
-    header("Location: index.php");
+    header("Location: error.php");
     die();
 }
-require_once "includes/profile_view.inc.php";
-require_once "includes/booking_view.inc.php";
+require_once "includes/views/profile_view.inc.php";
 ?>
 
 
@@ -38,20 +37,20 @@ require_once "includes/booking_view.inc.php";
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <?php if (isset($_SESSION["userID"]) && $_SESSION["userGroup"] == "admin") { ?>
                 <div class="navbar-nav mb-0 ms-auto">
-                <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
+                <a class="btn btn-light text-dark ms-3" href="activities.php">Activities</a>
                 <a class="btn btn-light text-dark ms-3" href="admin_portal.php">Admin Portal</a>                
                 <a class="btn btn-light text-dark ms-3" href="profile.php">Profile</a>  
-                <a class="btn btn-light text-dark ms-3" href="includes/logout.inc.php">Logout</a>
+                <a class="btn btn-light text-dark ms-3" href="includes/handlers/logout_handler.inc.php">Logout</a>
               </div>
             <?php } elseif (isset($_SESSION["userID"])) {?>
                 <div class="navbar-nav mb-0 ms-auto">
-                <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
+                <a class="btn btn-light text-dark ms-3" href="activities.php">Activities</a>
                 <a class="btn btn-light text-dark ms-3" href="profile.php">Profile</a>  
-                <a class="btn btn-light text-dark ms-3" href="includes/logout.inc.php">Logout</a>
+                <a class="btn btn-light text-dark ms-3" href="includes/handlers/logout_handler.inc.php">Logout</a>
               </div>               
             <?php } else { ?>
                 <div class="navbar-nav mb-0 ms-auto">
-                <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
+                <a class="btn btn-light text-dark ms-3" href="activities.php">Activities</a>
                 <a class="btn btn-light text-dark ms-3" href="login.php">Login</a>
                 <a class="btn btn-light text-dark ms-3" href="signup.php">Signup</a>
               </div>
@@ -67,7 +66,7 @@ require_once "includes/booking_view.inc.php";
       <div class="col" id="div1">
         <form action="includes/update_details.inc.php" method="post">
           <?php 
-          profileData();
+          displayProfileData();
           checkUpdateDetailsErrors()
           ?>
           <button type="submit" class="btn btn-primary text-white mt-3">Save changes</button>
@@ -98,11 +97,20 @@ require_once "includes/booking_view.inc.php";
     </div>
   </div>
 
+    <!-- bookings cards -->
+    <div class="container-xxl">
+      <section class="mt--3 mb-3 border border-2 border-primary vw-80">
+        <?php 
+        displaySessionsBookings();
+        ?>
+      </section>
+  </section>
+
   <!-- bookings cards -->
   <div class="container-xxl">
       <section class="mt--3 mb-3 border border-2 border-primary vw-80">
         <?php 
-        displayBookings();
+        displayEventsBookings();
         ?>
       </section>
   </section>

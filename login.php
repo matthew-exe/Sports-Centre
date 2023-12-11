@@ -1,9 +1,7 @@
 <?php
-require_once "includes/login_view.inc.php";
-require_once "includes/config_session.inc.php";
+require_once "includes/configs/session.inc.php";
+require_once "includes/views/login_view.inc.php";
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,20 +30,20 @@ require_once "includes/config_session.inc.php";
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <?php if (isset($_SESSION["userID"]) && $_SESSION["userGroup"] == "admin") { ?>
                 <div class="navbar-nav mb-0 ms-auto">
-                <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
+                <a class="btn btn-light text-dark ms-3" href="activities.php">Activities</a>
                 <a class="btn btn-light text-dark ms-3" href="admin_portal.php">Admin Portal</a>                
                 <a class="btn btn-light text-dark ms-3" href="profile.php">Profile</a>  
-                <a class="btn btn-light text-dark ms-3" href="includes/logout.inc.php">Logout</a>
+                <a class="btn btn-light text-dark ms-3" href="includes/handlers/logout_handler.inc.php">Logout</a>
               </div>
             <?php } elseif (isset($_SESSION["userID"])) {?>
                 <div class="navbar-nav mb-0 ms-auto">
-                <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
+                <a class="btn btn-light text-dark ms-3" href="activities.php">Activities</a>
                 <a class="btn btn-light text-dark ms-3" href="profile.php">Profile</a>  
-                <a class="btn btn-light text-dark ms-3" href="includes/logout.inc.php">Logout</a>
+                <a class="btn btn-light text-dark ms-3" href="includes/handlers/logout_handler.inc.php">Logout</a>
               </div>               
             <?php } else { ?>
                 <div class="navbar-nav mb-0 ms-auto">
-                <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
+                <a class="btn btn-light text-dark ms-3" href="activities.php">Activities</a>
                 <a class="btn btn-light text-dark ms-3" href="login.php">Login</a>
                 <a class="btn btn-light text-dark ms-3" href="signup.php">Signup</a>
               </div>
@@ -54,24 +52,16 @@ require_once "includes/config_session.inc.php";
     </div>
 </nav>
 
-
-
-
-
 <!-- Login form -->
 <section class="container-fluid">
-  <!--row justify-content-center is used for centering the login form-->
     <section class="row justify-content-center align-items-center vh-100">
-    <!--Making the form responsive-->
       <section class="col-12 col-sm-6 col-md-3">
-        <form class="form-container bg-white p-5 mb-2 border border-3 border-primary rounded-3" action="includes/login.inc.php" method="post">
-        <!--Binding the label and input together-->
+        <form class="form-container bg-white p-5 mb-2 border border-3 border-primary rounded-3" action="includes/handlers/login_handler.inc.php" method="post">
         <div class="form-group">
           <h4 class="text-center font-weight-bold"> Login </h4>
           <label for="email">Email</label>
            <input type="text" class="form-control" name="email" placeholder="Enter email">
         </div>
-        <!--Binding the label and input together-->
         <div class="form-group">
           <label for="pwd">Password</label>
           <input type="password" class="form-control mb-4" name="pwd" placeholder="Password">
@@ -79,7 +69,6 @@ require_once "includes/config_session.inc.php";
         <button type="Sign in" class="btn btn-primary text-white">Login</button>
         <div class="form-footer">
           <?php 
-            //showUsername();
             checkLoginErrors();
           ?>
           <p> Don't have an account? <a class="link-primary" href="signup.php">Sign Up</a></p>
@@ -90,9 +79,6 @@ require_once "includes/config_session.inc.php";
   </section>
 <body>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
 </body>
-
-
-
 </html>

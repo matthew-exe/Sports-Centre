@@ -1,36 +1,35 @@
 <?php
 
 
+function displayProfileData() {
+    require_once "C:/xampp/htdocs/Web-Programming/includes/configs/session.inc.php";
+    require_once "C:/xampp/htdocs/Web-Programming/includes/configs/dbh.inc.php";
+    require_once "C:/xampp/htdocs/Web-Programming/includes/controllers/user_controller.inc.php";
 
-function profileData() {
-    require_once "profile_model.inc.php";
-    require_once "dbh.inc.php";
     $dbh = new dbh();
-    $userData = getUser($dbh->connect(), $_SESSION["userID"]);
-    $dbh = null;
+    $userController = new UserController($dbh->connect());
 
-    // echo '<input type="text" name="firstname" placeholder="Firstname: ' . htmlspecialchars($userData["firstname"]) . '" ><br>';
-    // echo '<input type="text" name="surname" placeholder="Surname: ' . htmlspecialchars($userData["surname"]) . '" ><br>';
-    // echo '<input type="text" name="email" placeholder="Email: ' . htmlspecialchars($userData["email"]) . '" ><br>';
-    // echo '<input type="text" name="pwd" placeholder="Password: *************" ><br><br>';
+    $user = $userController->getUserFromID($_SESSION["userID"]);
 
     echo '
     <div class="form-group">
     <h4 class="text-center font-weight-bold">Your details:</h4>
     <label for="first-name">First name:</label>
-    <input type="text" class="form-control" name="firstname" aria-describeby="firstName" placeholder="'. htmlspecialchars($userData["firstname"]) .'">
+    <input type="text" class="form-control" name="firstname" aria-describeby="firstName" placeholder="'. htmlspecialchars($user["firstname"]) .'">
     </div>
     <div class="form-group">
     <label for="last-name">Surname:</label>
-    <input type="text" class="form-control" name="surname" placeholder="'. htmlspecialchars($userData["surname"]) .'">
+    <input type="text" class="form-control" name="surname" placeholder="'. htmlspecialchars($user["surname"]) .'">
     </div>
     <div class="form-group">
     <label for="email-address">Email Address:</label>
-    <input type="text" class="form-control" name="email" placeholder="'. htmlspecialchars($userData["email"]) .'">
+    <input type="text" class="form-control" name="email" placeholder="'. htmlspecialchars($user["email"]) .'">
     </div>
     ';
 
-    $userData = null;
+    $user = null;
+    $dbh = null;
+    $userController = null;
 }
 
 function checkUpdateDetailsErrors() {

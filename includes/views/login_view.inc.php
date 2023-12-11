@@ -1,7 +1,4 @@
-<?php 
-
-declare(strict_types=1);
-
+<?php
 function checkLoginErrors() {
     if (isset($_SESSION["loginErrors"])) {
         $errors = $_SESSION["loginErrors"];
@@ -16,13 +13,3 @@ function checkLoginErrors() {
         echo "<p style='color: green'>Login Successful!</p>";
     }
 }
-
-// function showUsername() {
-//     if (isset($_SESSION["userID"])) {
-//         echo "You are logged in as " . $_SESSION["userEmail"];
-//     }
-//     else {
-//         echo "You are not logged in";
-//     }
-// }
-

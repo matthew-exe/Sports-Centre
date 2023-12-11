@@ -1,6 +1,6 @@
 <?php
-require_once "includes/login_view.inc.php";
-require_once "includes/config_session.inc.php";
+// require_once "includes/login_view.inc.php";
+// require_once "includes/config_session.inc.php";
 ?>
 
 
@@ -34,20 +34,20 @@ require_once "includes/config_session.inc.php";
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <?php if (isset($_SESSION["userID"]) && $_SESSION["userGroup"] == "admin") { ?>
                 <div class="navbar-nav mb-0 ms-auto">
-                <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
+                <a class="btn btn-light text-dark ms-3" href="activities.php">Activities</a>
                 <a class="btn btn-light text-dark ms-3" href="admin_portal.php">Admin Portal</a>                
                 <a class="btn btn-light text-dark ms-3" href="profile.php">Profile</a>  
-                <a class="btn btn-light text-dark ms-3" href="includes/logout.inc.php">Logout</a>
+                <a class="btn btn-light text-dark ms-3" href="includes/handlers/logout_handler.inc.php">Logout</a>
               </div>
             <?php } elseif (isset($_SESSION["userID"])) {?>
                 <div class="navbar-nav mb-0 ms-auto">
-                <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
+                <a class="btn btn-light text-dark ms-3" href="activities.php">Activities</a>
                 <a class="btn btn-light text-dark ms-3" href="profile.php">Profile</a>  
-                <a class="btn btn-light text-dark ms-3" href="includes/logout.inc.php">Logout</a>
+                <a class="btn btn-light text-dark ms-3" href="includes/handlers/logout_handler.inc.php">Logout</a>
               </div>               
             <?php } else { ?>
                 <div class="navbar-nav mb-0 ms-auto">
-                <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
+                <a class="btn btn-light text-dark ms-3" href="activities.php">Activities</a>
                 <a class="btn btn-light text-dark ms-3" href="login.php">Login</a>
                 <a class="btn btn-light text-dark ms-3" href="signup.php">Signup</a>
               </div>
