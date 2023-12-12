@@ -1,10 +1,9 @@
 <?php
 
-
 function displayProfileData() {
-    require_once "C:/xampp/htdocs/Web-Programming/includes/configs/session.inc.php";
-    require_once "C:/xampp/htdocs/Web-Programming/includes/configs/dbh.inc.php";
-    require_once "C:/xampp/htdocs/Web-Programming/includes/controllers/user_controller.inc.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/Web-Programming/includes/configs/session.inc.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/Web-Programming/includes/configs/dbh.inc.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/Web-Programming/includes/controllers/user_controller.inc.php";
 
     $dbh = new dbh();
     $userController = new UserController($dbh->connect());
@@ -42,7 +41,7 @@ function checkUpdateDetailsErrors() {
     }
 
     }
-    else if (isset($_GET["detailsUpdate"]) && $_GET["updateDetails"] === "success") {
+    else if (isset($_GET["updateDetails"]) && $_GET["updateDetails"] === "success") {
         echo "<p style='color: green'>Profile Information Updated!</p>";
     }
 }

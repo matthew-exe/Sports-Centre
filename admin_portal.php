@@ -33,7 +33,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <?php if (isset($_SESSION["userID"]) && $_SESSION["userGroup"] == "admin") { ?>
+            <?php if (isset($_SESSION["userID"]) && $_SESSION["userGroup"] == "Admin") { ?>
                 <div class="navbar-nav mb-0 ms-auto">
                 <a class="btn btn-light text-dark ms-3" href="activities.php">Activities</a>
                 <a class="btn btn-light text-dark ms-3" href="admin_portal.php">Admin Portal</a>                

@@ -1,7 +1,8 @@
 <?php
-// require_once "includes/config_session.inc.php";
-// require_once "includes/search_view.inc.php";
-// require_once "includes/events_view.inc.php";
+require_once "includes/configs/session.inc.php";
+require_once "includes/views/activities_view.inc.php";
+
+$_SESSION['last_page_url'] = $_SERVER['REQUEST_URI'];
 ?>
 
 
@@ -60,7 +61,7 @@
     <section class="container-fluid">
         <section class="row justify-content-center align-items-center vw-90 pt-5">
             <section class="col-12 col-sm-6 col-md-8 border border-3 border-primary rounded-3">
-            <form action="events.php" method="get" id="searchForm">
+            <form action="activities.php" method="get" id="searchForm">
             <div class="input-group mb-3 mt-3">
                 <input type="text" name="searchInput" class="form-control" placeholder="Search" aria-label="search" aria-describedby="basic-addon2">
                 <div class="dropdown">
@@ -81,21 +82,46 @@
 
     
                 <?php
-                    if (isset($_GET["searchInput"]) || isset($_GET["dateFilter"]) || isset($_GET["filters"])) {
-                        $searchInput = isset($_GET["searchInput"]) ? $_GET["searchInput"] : null;
-                        $dateFilter = isset($_GET["dateFilter"]) ? $_GET["dateFilter"] : null;
-                        $filters = isset($_GET["filters"]) ? $_GET["filters"] : null;
-                        displaySearchedEvents($searchInput, $dateFilter, $filters);
-                    }
-                    else {
-                        displayEvents();
-                    }
+                    // if (isset($_GET["searchInput"]) || isset($_GET["dateFilter"]) || isset($_GET["filters"])) {
+                    //     $searchInput = isset($_GET["searchInput"]) ? $_GET["searchInput"] : null;
+                    //     $dateFilter = isset($_GET["dateFilter"]) ? $_GET["dateFilter"] : null;
+                    //     $filters = isset($_GET["filters"]) ? $_GET["filters"] : null;
+                    //     displaySearchedEvents($searchInput, $dateFilter, $filters);
+                    // }
+                    // else {
+                    //     displayEvents();
+                    // }
+
+                    
+                ?>
+
+                <?php
+                    $page = isset($_GET["page"]) ? $_GET["page"] : 1;
+                    $dateFilter = isset($_GET["dateFilter"]) ? $_GET["dateFilter"] : '';
+                    $search = isset($_GET["searchInput"]) ? $_GET["searchInput"] : '';
+                    $filters = isset($_GET["filters"]) ? $_GET["filters"] : [];
+                
+                    displayActivities($page, $dateFilter, $search, $filters);
                 ?>
             </section>
         </section>
     </section>
 
 
+<footer class="footer container-fluid d-flex footer-expand-large justify-content-between align-items-center py-3 mt-4 border-top bg-primary footer-fixed-bottom">
+    <p class="col-md-4 mb-0 text-white">© 2023 WPT1 </p>
+  
+    <a class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" href="index.php">
+      <img src="images/logo.svg" width="40" height="32">
+    </a>
+  
+    <ul class="nav col-md-4 justify-content-end">
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Events</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Sessions</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
+    </ul>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>

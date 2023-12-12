@@ -1,6 +1,5 @@
 <?php
-// require_once "includes/login_view.inc.php";
-// require_once "includes/config_session.inc.php";
+require_once "includes/configs/session.inc.php";
 ?>
 
 
@@ -29,7 +28,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <?php if (isset($_SESSION["userID"]) && $_SESSION["userGroup"] == "admin") { ?>
+            <?php if (isset($_SESSION["userID"]) && $_SESSION["userGroup"] == "Admin") { ?>
                 <div class="navbar-nav mb-0 ms-auto">
                 <a class="btn btn-light text-dark ms-3" href="activities.php">Activities</a>
                 <a class="btn btn-light text-dark ms-3" href="admin_portal.php">Admin Portal</a>                
@@ -107,41 +106,54 @@
       </div>
       <div class="col">
       <iframe class="mt-3"src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d315.5945681257861!2d-1.9939281199011423!3d50.74300415024202!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4873a716f2ae0daf%3A0x7b4553d762ce0bd1!2sUnit%20E4!5e0!3m2!1sen!2suk!4v1702326231677!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>  </div>
-
+  </div>
   <hr style="border-width: 2px;">
 
   <div class="row text-center">
-    <div class="col mb-5 fs-4">
-        <h2 class="mt-5 mb-5">Get in touch!</h2>
-        <p>Got a question or request? Let us know, and we will reply as soon as possible!</p>
-        <form>
-            <div class="row justify-content-center mb-3">
-                <div class="col-md-5 mb-3">
-                    <input type="text" class="form-control" placeholder="Your Name">
-                </div>
-                <div class="col-md-5 mb-3">
-                    <input type="text" class="form-control" placeholder="Your Email">
-                </div>
-            </div>
-            <div class="row justify-content-center mb-3">
-                <div class="col-md-8">
-                    <input type="textarea" class="form-control" style="height: 150px;" placeholder="Your Message">
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-5">
-                    <button class="btn btn-primary text-white" style="width: 100%;">Submit</button>
-                </div>
-            </div>
-        </form>
-    </div>
+  <div class="col mb-5 fs-4">
+    <h2 class="mt-5 mb-5">Get in touch!</h2>
+    <p>Got a question or request? Let us know, and we will reply as soon as possible!</p>
+    <form>
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-6 mb-3">
+          <input type="text" class="form-control" placeholder="Your Name">
+        </div>
+        <div class="col-md-6 mb-3">
+          <input type="text" class="form-control" placeholder="Your Email">
+        </div>
+      </div>
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-12">
+          <input type="textarea" class="form-control" style="height: 150px;" placeholder="Your Message">
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-5">
+          <button class="btn btn-primary text-white" style="width: 100%;">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 </div>
 
+<footer class="footer container-fluid d-flex footer-expand-large justify-content-between align-items-center py-3 mt-4 border-top bg-primary footer-fixed-bottom">
+    <p class="col-md-4 mb-0 text-white">© 2023 Zenith Sports Hub</p>
+  
+    <a class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" href="index.php">
+      <img src="images/logo.svg" width="40" height="32">
+    </a>
+  
+    <ul class="nav col-md-4 justify-content-end">
+      <li class="nav-item"><a href="index.php" class="nav-link px-2 text-white">Home</a></li>
+      <li class="nav-item"><a href="activities.php" class="nav-link px-2 text-white">Activities</a></li>
+      <li class="nav-item"><a href="login.php" class="nav-link px-2 text-white">Login</a></li>
+      <li class="nav-item"><a href="signup.php" class="nav-link px-2 text-white">Signup</a></li>
+    </ul>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 </body>
-
-
 
 </html>

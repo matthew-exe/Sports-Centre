@@ -59,7 +59,7 @@ require_once "includes/views/signup_view.inc.php";
       <section class="col-12 col-sm-6 col-md-3">
         <form class="form-container bg-white p-5 mb-2 border border-3 border-primary rounded-3" action="includes/handlers/signup_handler.inc.php" method="post">
         <?php 
-            displaySignupInputs();
+          displaySignupInputs();
         ?>
         <button type="Sign up" class="btn btn-primary text-white">Sign Up</button>
         <div class="form-footer">
@@ -74,7 +74,7 @@ require_once "includes/views/signup_view.inc.php";
   </section>
 <body>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
 </body>
 
 

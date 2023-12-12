@@ -72,7 +72,11 @@ function displaySignupInputs() {
     echo '
     <div class="form-group">
         <label for="pwd">Password</label>
-        <input type="password" class="form-control mb-4" name="pwd" placeholder="Password">
+        <input type="password" class="form-control mb-2" name="pwd" placeholder="Password">
+    </div>
+    <div class="form-group">
+        <label for="pwd">Confirm Password</label>
+        <input type="password" class="form-control mb-4" name="confirmPwd" placeholder="Confirm Password">
     </div>
     ';
 

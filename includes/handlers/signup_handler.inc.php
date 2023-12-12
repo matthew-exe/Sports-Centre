@@ -5,11 +5,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $surname = $_POST["surname"];
     $email = $_POST["email"];
     $pwd = $_POST["pwd"];
+    $confirmPwd = $_POST["confirmPwd"];
 
     try {
-        require_once "../configs/dbh.inc.php";
-        require_once "../configs/session.inc.php";
-        require_once "../controllers/user_controller.inc.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/configs/dbh.inc.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/configs/session.inc.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/controllers/user_controller.inc.php";
 
         $dbh = new dbh();
         $userController = new UserController($dbh->connect());
@@ -29,10 +30,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $errors["emailRegistered"] = "Email is already registered!";
         }
 
-        if ($userController->isPasswordValid($pwd)) {
-            $errors["invalidPassword"] = "Password must contain atleast one capital letter, one number and one symbol!";
+        if (!$userController->isPasswordValid($pwd)) {
+            $errors["invalidPassword"] = "Password must be atleast 8 characters and contain atleast one capital letter, one lowercase letter and one number!";
         }
 
+        if (!$userController->doPasswordsMatch($pwd, $confirmPwd)) {
+            $errors["passwordMatch"] = "Passwords do not match!";
+        }
 
         if ($errors) {
             $_SESSION["signupErrors"] = $errors;
@@ -52,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Creating the user and getting the userID of the new user
         $userID = $userController->createUser($firstname, $surname, $email, $pwd);
         // Using that userID to add the user to the Member group
-        $userController->setUserGroup($userID, 1); 
+        $userController->setUserGroup($userID, 2); 
 
         header("Location: ../../signup.php?signup=success");
 

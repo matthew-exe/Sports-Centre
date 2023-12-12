@@ -64,7 +64,7 @@ require_once "includes/views/profile_view.inc.php";
   <div class="container-xxl justify-content-center align-items-center border border-2 border-primary p-3 my-5">
     <div class="row gx-5 vw-80">
       <div class="col" id="div1">
-        <form action="includes/update_details.inc.php" method="post">
+        <form action="includes/handlers/update_details_handler.inc.php" method="post">
           <?php 
           displayProfileData();
           checkUpdateDetailsErrors()
@@ -74,19 +74,19 @@ require_once "includes/views/profile_view.inc.php";
       </div>
 
       <div class="col" id="div2">
-        <form action="includes/update_password.inc.php" method="post">
+        <form action="includes/handlers/update_password_handler.inc.php" method="post">
           <div class="form-group">
             <h4 class="text-center font-weight-bold">Change Password</h4>
             <label for="current-password">Current Password:</label>
-            <input type="password" class="form-control" name="currentPassword" placeholder="Password">
+            <input type="password" class="form-control" name="pwd" placeholder="Password">
           </div>
           <div class="form-group">
             <label for="new-password">New Password:</label>
-            <input type="password" class="form-control" name="newPassword" placeholder="Enter New Password">
+            <input type="password" class="form-control" name="newPwd" placeholder="Enter New Password">
           </div>
           <div class="form-group">
             <label for="confirm-password">Confirm New Password:</label>
-            <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm New Password">
+            <input type="password" class="form-control" name="confirmPwd" placeholder="Confirm New Password">
           </div>
           <?php
           checkUpdatePasswordErrors();

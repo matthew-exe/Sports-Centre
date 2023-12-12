@@ -47,16 +47,16 @@ class UserModel {
     }
 
     public function updateUser($attributeToUpdate, $updatedValue, $userID) {
-        $query = "UPDATE users SET $attributeToUpdate = :updatedValue WHERE userID = :userID;";
+        $query = "UPDATE users SET $attributeToUpdate = :updatedValue WHERE user_id = :user_id;";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue("updatedValue", $updatedValue);
-        $statement->bindValue("userID", $userID);
+        $statement->bindValue("user_id", $userID);
         $statement->execute();
     }
 
 
     public function updatePwd($pwd, $userID) {
-        $query = "UPDATE users SET pwd = :hashedPwd WHERE userID = :userID;";
+        $query = "UPDATE users SET pwd = :hashedPwd WHERE user_id = :user_id;";
         $statement = $this->pdo->prepare($query);
 
         $options = [
@@ -65,7 +65,7 @@ class UserModel {
 
         $hashedPwd = password_hash($pwd, PASSWORD_BCRYPT, $options);
         $statement->bindValue("hashedPwd", $hashedPwd);
-        $statement->bindValue("userID", $userID);
+        $statement->bindValue("user_id", $userID);
         $statement->execute();
     }
 

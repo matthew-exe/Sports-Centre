@@ -1,7 +1,6 @@
 <?php
-// require_once "includes/config_session.inc.php";
-// require_once "includes/eventinfo_view.inc.php";
-// require_once "includes/booking_view.inc.php";
+require_once "includes/configs/session.inc.php";
+require_once "includes/views/activity_info_view.inc.php";
 ?>
 
 
@@ -58,8 +57,8 @@
 
 <body>
     <?php
-        if (isset($_GET["eventID"])) {
-            displayExpandedEvent($_GET["eventID"]);
+        if (isset($_GET["activityID"])) {
+            displayExpandedActivity($_GET["activityID"]);
         }
     ?>
 </body>

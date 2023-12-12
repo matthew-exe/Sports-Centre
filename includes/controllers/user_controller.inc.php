@@ -1,5 +1,5 @@
 <?php
-require_once "includes/models/user_model.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/models/user_model.inc.php";
 
 class UserController extends UserModel {
 
@@ -24,6 +24,25 @@ class UserController extends UserModel {
             return false;
         }
     }
+
+    function isUpdateDetailsInputEmpty($firstname, $surname, $email) {
+        if (empty($firstname) && empty($surname) && empty($email)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function isUpdatePasswordInputEmpty($pwd, $newPwd, $confirmPwd) {
+        if (empty($pwd) || empty($newPwd) || empty($confirmPwd)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
     
     function isEmailInvalid($email) {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -49,10 +68,19 @@ class UserController extends UserModel {
         $number = preg_match('@[0-9]@', $pwd);
     
         if ($uppercase && $lowercase && $number && 8 < strlen($pwd)) {
-            return false;
+            return true;
         }
         else {
+            return false;
+        }
+    }
+
+    function doPasswordsMatch($pwd, $confirmPwd) {
+        if ($pwd === $confirmPwd) {
             return true;
+        }
+        else {
+            return false;
         }
     }
 
