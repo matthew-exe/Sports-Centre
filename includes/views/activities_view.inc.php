@@ -98,7 +98,7 @@ function displayActivities($page = 1, $dateFilter = '', $search = '', $filters =
         }
         echo '</ul></nav>';
     } else {
-        echo '<p>Sorry, there are currently no job listings that match your search.</p>';
+        echo '<p>Sorry, there are currently no activities that match your search.</p>';
     }
     
 

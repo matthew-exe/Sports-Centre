@@ -78,23 +78,7 @@ $_SESSION['last_page_url'] = $_SERVER['REQUEST_URI'];
                     <button class="btn btn-primary ms-2" type="submit">Submit</button>
                 </div>
             </div>
-        </form>
-
-    
-                <?php
-                    // if (isset($_GET["searchInput"]) || isset($_GET["dateFilter"]) || isset($_GET["filters"])) {
-                    //     $searchInput = isset($_GET["searchInput"]) ? $_GET["searchInput"] : null;
-                    //     $dateFilter = isset($_GET["dateFilter"]) ? $_GET["dateFilter"] : null;
-                    //     $filters = isset($_GET["filters"]) ? $_GET["filters"] : null;
-                    //     displaySearchedEvents($searchInput, $dateFilter, $filters);
-                    // }
-                    // else {
-                    //     displayEvents();
-                    // }
-
-                    
-                ?>
-
+            </form>
                 <?php
                     $page = isset($_GET["page"]) ? $_GET["page"] : 1;
                     $dateFilter = isset($_GET["dateFilter"]) ? $_GET["dateFilter"] : '';

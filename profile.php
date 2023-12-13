@@ -5,6 +5,8 @@ if (!isset($_SESSION["userID"])) {
     die();
 }
 require_once "includes/views/profile_view.inc.php";
+
+$_SESSION['last_page_url'] = $_SERVER['REQUEST_URI'];
 ?>
 
 
@@ -97,23 +99,44 @@ require_once "includes/views/profile_view.inc.php";
     </div>
   </div>
 
-    <!-- bookings cards -->
-    <div class="container-xxl">
-      <section class="mt--3 mb-3 border border-2 border-primary vw-80">
-        <?php 
-        displaySessionsBookings();
-        ?>
-      </section>
-  </section>
+  <section class="container-fluid">
+        <section class="row justify-content-center align-items-center vw-90 pt-5">
+            <section class="col-12 col-sm-6 col-md-8 border border-3 border-primary rounded-3">
+            <form action="profile.php" method="get" id="searchForm">
+            <div class="input-group mb-3 mt-3">
+                <input type="text" name="searchInput" class="form-control" placeholder="Search" aria-label="search" aria-describedby="basic-addon2">
+                <input type="date" class="form-control" id="dateFilter" name="dateFilter">
+                <div class="input-group-append">
+                    <button class="btn btn-primary ms-2" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
 
-  <!-- bookings cards -->
-  <div class="container-xxl">
-      <section class="mt--3 mb-3 border border-2 border-primary vw-80">
-        <?php 
-        displayEventsBookings();
-        ?>
-      </section>
-  </section>
+    
+                <?php
+                    // if (isset($_GET["searchInput"]) || isset($_GET["dateFilter"]) || isset($_GET["filters"])) {
+                    //     $searchInput = isset($_GET["searchInput"]) ? $_GET["searchInput"] : null;
+                    //     $dateFilter = isset($_GET["dateFilter"]) ? $_GET["dateFilter"] : null;
+                    //     $filters = isset($_GET["filters"]) ? $_GET["filters"] : null;
+                    //     displaySearchedEvents($searchInput, $dateFilter, $filters);
+                    // }
+                    // else {
+                    //     displayEvents();
+                    // }
+
+                    
+                ?>
+
+                <?php
+                    $page = isset($_GET["page"]) ? $_GET["page"] : 1;
+                    $dateFilter = isset($_GET["dateFilter"]) ? $_GET["dateFilter"] : '';
+                    $search = isset($_GET["searchInput"]) ? $_GET["searchInput"] : '';
+                
+                    displayUsersBookedActivities($page, $dateFilter, $search);
+                ?>
+            </section>
+        </section>
+    </section>
 
 
 

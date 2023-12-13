@@ -6,9 +6,9 @@ function displayExpandedActivity($activityID) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/Web-Programming/includes/controllers/activity_controller.inc.php";
 
     $dbh = new dbh();
-    $ActivityController = new ActivityController($dbh->connect());
+    $activityController = new ActivityController($dbh->connect());
 
-    $activity = $ActivityController->getActivityById($activityID);
+    $activity = $activityController->getActivityById($activityID);
 
     // Handling if the last page url is not already set
     if (!isset($_SESSION['last_page_url'])) {
@@ -26,15 +26,15 @@ function displayExpandedActivity($activityID) {
             <p class="mb-2"><strong>Hosted by:</strong> ' . $activity["host"] . '</p>
             <p class="mb-1"><strong>Description: </strong></p>
             <p class="mb-2">' . $activity["longDescription"] . '</p>
-            <p class="mb-2"><strong>Capacity:</strong> ' . $activity["capacity"] . '</p>
+            <p class="mb-2"><strong>Capacity:</strong> '.$activityController->countBookingsForActivity($activityID).'/' . $activity["capacity"] . '</p>
             <p class="mb-1"><strong>Time:</strong> ' . date("H:i", strtotime($activity["activity_time"])) . '</p>
-            <p class="mb-2"><strong>Date:</strong> ' . date("d/m/Y", strtotime($activity["activity_time"])) . '</p>
-            ' . "booking errors here" . '';
+            <p class="mb-2"><strong>Date:</strong> ' . date("d/m/Y", strtotime($activity["activity_date"])) . '</p>
+            ' . checkBookingErrors() . '';
             
             if (isset($_SESSION["userID"])) {
                 $output .= '
-                <form action="includes/booking.inc.php" method="post">
-                <button type="submit" class="btn btn-primary mb-2" name="activityID" id="moreInfo" value="' . $activityID . '">Book Event</button>
+                <form action="includes/handlers/booking_handler.inc.php" method="post">
+                <button type="submit" class="btn btn-primary mb-2" name="activityID" id="moreInfo" value="' . $activityID . '">Book Activity</button>
                 </form>
                 ';
             } else {
@@ -50,4 +50,22 @@ function displayExpandedActivity($activityID) {
 
     $ActivityController = null;
     $dbh = null;
+}
+
+function checkBookingErrors() {
+    $output = "";
+
+    if (isset($_SESSION["bookingErrors"])) {
+        $errors = $_SESSION["bookingErrors"];
+        
+        foreach ($errors as $error) {
+            $output .= "<p style='color: red'>$error</p>";
+        }
+
+        unset($_SESSION["bookingErrors"]);
+    }
+    else if (isset($_GET["booking"]) && $_GET["booking"] === "success") {
+        $output .= "<p style='color: green'>Activity Booked!</p>";
+    }
+    return $output;
 }
