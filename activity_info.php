@@ -1,6 +1,7 @@
 <?php
 require_once "includes/configs/session.inc.php";
 require_once "includes/views/activity_info_view.inc.php";
+
 ?>
 
 
