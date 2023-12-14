@@ -1,6 +1,6 @@
 <?php
-require_once "includes/signup_view.inc.php";
-require_once "includes/config_session.inc.php";
+require_once "includes/configs/session.inc.php";
+require_once "includes/views/signup_view.inc.php";
 ?>
 
 
@@ -30,22 +30,22 @@ require_once "includes/config_session.inc.php";
         </button>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <?php if (isset($_SESSION["userID"]) && $_SESSION["userGroup"] == "admin") { ?>
+            <?php if (isset($_SESSION["userID"]) && $_SESSION["userGroup"] == "Admin") { ?>
                 <div class="navbar-nav mb-0 ms-auto">
-                <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
+                <a class="btn btn-light text-dark ms-3" href="activities.php">Activities</a>
                 <a class="btn btn-light text-dark ms-3" href="admin_portal.php">Admin Portal</a>                
                 <a class="btn btn-light text-dark ms-3" href="profile.php">Profile</a>  
-                <a class="btn btn-light text-dark ms-3" href="includes/logout.inc.php">Logout</a>
+                <a class="btn btn-light text-dark ms-3" href="includes/handlers/logout_handler.inc.php">Logout</a>
               </div>
             <?php } elseif (isset($_SESSION["userID"])) {?>
                 <div class="navbar-nav mb-0 ms-auto">
-                <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
+                <a class="btn btn-light text-dark ms-3" href="activities.php">Activities</a>
                 <a class="btn btn-light text-dark ms-3" href="profile.php">Profile</a>  
-                <a class="btn btn-light text-dark ms-3" href="includes/logout.inc.php">Logout</a>
+                <a class="btn btn-light text-dark ms-3" href="includes/handlers/logout_handler.inc.php">Logout</a>
               </div>               
             <?php } else { ?>
                 <div class="navbar-nav mb-0 ms-auto">
-                <a class="btn btn-light text-dark ms-3" href="events.php">Events</a>
+                <a class="btn btn-light text-dark ms-3" href="activities.php">Activities</a>
                 <a class="btn btn-light text-dark ms-3" href="login.php">Login</a>
                 <a class="btn btn-light text-dark ms-3" href="signup.php">Signup</a>
               </div>
@@ -54,25 +54,16 @@ require_once "includes/config_session.inc.php";
     </div>
 </nav>
 
-
-
-
-
-
-<!-- Login form -->
 <section class="container-fluid">
-  <!--row justify-content-center is used for centering the login form-->
     <section class="row justify-content-center align-items-center vh-100">
-    <!--Making the form responsive-->
       <section class="col-12 col-sm-6 col-md-3">
-        <form class="form-container bg-white p-5 mb-2 border border-3 border-primary rounded-3" action="includes/signup.inc.php" method="post">
+        <form class="form-container bg-white p-5 mb-2 border border-3 border-primary rounded-3" action="includes/handlers/signup_handler.inc.php" method="post">
         <?php 
-            signupInputs();
+          displaySignupInputs();
         ?>
         <button type="Sign up" class="btn btn-primary text-white">Sign Up</button>
         <div class="form-footer">
           <?php 
-            //showUsername();
             checkSignupErrors();
           ?>
           <p>Have an account? <a class="link-primary" href="login.php">Login</a></p>
@@ -83,7 +74,7 @@ require_once "includes/config_session.inc.php";
   </section>
 <body>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
 </body>
 
 

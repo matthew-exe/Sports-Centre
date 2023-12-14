@@ -1,7 +1,10 @@
 <?php
 require_once "includes/configs/session.inc.php";
-require_once "includes/views/login_view.inc.php";
+require_once "includes/views/activities_view.inc.php";
+
+$_SESSION['last_page_url'] = $_SERVER['REQUEST_URI'];
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,31 +55,42 @@ require_once "includes/views/login_view.inc.php";
     </div>
 </nav>
 
-<!-- Login form -->
-<section class="container-fluid">
-    <section class="row justify-content-center align-items-center vh-100">
-      <section class="col-12 col-sm-6 col-md-3">
-        <form class="form-container bg-white p-5 mb-2 border border-3 border-primary rounded-3" action="includes/handlers/login_handler.inc.php" method="post">
-        <div class="form-group">
-          <h4 class="text-center font-weight-bold"> Login </h4>
-          <label for="email">Email</label>
-           <input type="text" class="form-control" name="email" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-          <label for="pwd">Password</label>
-          <input type="password" class="form-control mb-4" name="pwd" placeholder="Password">
-        </div>
-        <button type="Sign in" class="btn btn-primary text-white">Login</button>
-        <div class="form-footer">
-          <?php 
-            checkLoginErrors();
-          ?>
-          <p> Don't have an account? <a class="link-primary" href="signup.php">Sign Up</a></p>
-        </div>
-        </form>
-      </section>
+
+<body>
+    <!-- Start of container including search bar -->
+    <section class="container-fluid">
+        <section class="row justify-content-center align-items-center vw-90 pt-5">
+            <section class="col-12 col-sm-6 col-md-8 border border-3 border-primary rounded-3">
+            <form action="activities.php" method="get" id="searchForm">
+            <div class="input-group mb-3 mt-3">
+                <input type="text" name="searchInput" class="form-control" placeholder="Search" aria-label="search" aria-describedby="basic-addon2">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Toggle Options
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="filters">
+                        <li><a class="dropdown-item" href="#" data-filter="closestdate">Sort by closest date</a></li>
+                        <li><a class="dropdown-item" href="#" data-filter="notfullybooked">Exclude Fully Booked Events</a></li>
+                    </ul>
+                </div>
+                <input type="date" class="form-control" id="dateFilter" name="dateFilter">
+                <div class="input-group-append">
+                    <button class="btn btn-primary ms-2" type="submit">Submit</button>
+                </div>
+            </div>
+            </form>
+                <?php
+                    $page = isset($_GET["page"]) ? $_GET["page"] : 1;
+                    $dateFilter = isset($_GET["dateFilter"]) ? $_GET["dateFilter"] : '';
+                    $search = isset($_GET["searchInput"]) ? $_GET["searchInput"] : '';
+                    $filters = isset($_GET["filters"]) ? $_GET["filters"] : [];
+                
+                    displayActivities($page, $dateFilter, $search, $filters);
+                ?>
+            </section>
+        </section>
     </section>
-  </section>
+
 
 <footer class="footer container-fluid d-flex footer-expand-large justify-content-between align-items-center py-3 mt-4 border-top bg-primary footer-fixed-bottom">
     <p class="col-md-4 mb-0 text-white">© 2023 WPT1 </p>
@@ -92,8 +106,44 @@ require_once "includes/views/login_view.inc.php";
       <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
     </ul>
 </footer>
-<body>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        let filters = [];
+        document.querySelectorAll('#filters .dropdown-item.active').forEach(filter => {
+            filters.push(filter.dataset.filter);
+        });
+
+        const searchInput = document.querySelector('input[name="searchInput"]').value;
+        const dateFilter = document.getElementById('dateFilter').value;
+
+        const queryParams = new URLSearchParams();
+        queryParams.append('searchInput', searchInput);
+        queryParams.append('dateFilter', dateFilter);
+        filters.forEach(filter => {
+            queryParams.append('filters[]', filter);
+        });
+
+        const queryString = queryParams.toString();
+        const actionUrl = this.getAttribute('action') + '?' + queryString;
+
+        window.location.href = actionUrl;
+    });
+
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            item.classList.toggle('active');
+        });
+    });
+</script>
+
 </body>
+
+
 </html>
+

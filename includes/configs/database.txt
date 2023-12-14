@@ -1,0 +1,48 @@
+CREATE TABLE users (
+    user_id int(11) NOT NULL AUTO_INCREMENT,
+    firstname VARCHAR(50) NOT NULL,
+    surname VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    pwd VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIME,
+    PRIMARY KEY (user_id)
+);
+
+CREATE TABLE activities (
+    activity_id int(11) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    shortDescription VARCHAR(255) NOT NULL,
+    longDescription TEXT NOT NULL,
+    host VARCHAR(50) NOT NULL,
+    image VARCHAR(255) NOT NULL,
+    capacity int(11) NOT NULL,
+    activity_time TIME NOT NULL,
+    activity_date DATE NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIME,
+    PRIMARY KEY (activity_id)
+);
+
+CREATE TABLE bookings (
+    booking_id int(11) NOT NULL AUTO_INCREMENT,
+    user_id int(11) NOT NULL,
+    activity_id int(11) NOT NULL,
+    PRIMARY KEY (booking_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (activity_id) REFERENCES activities(activity_id) ON DELETE CASCADE
+); 
+
+CREATE TABLE groups (
+    group_id int(11) NOT NULL AUTO_INCREMENT,
+    group_name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (group_id)
+);
+
+create table group_users (
+    group_id int (11) NOT NULL,
+    user_id int (11) NOT NULL,
+    FOREIGN KEY (group_id) REFERENCES groups(group_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+INSERT INTO groups (group_name) VALUES ('Member');
+INSERT INTO groups (group_name) VALUES ('Admin');
