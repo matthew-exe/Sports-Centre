@@ -63,8 +63,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/views/admin_p
         <div class="container col-12 col-sm-6 col-md-8 border border-3 border-primary rounded-3">
             <div class="row">
                 <div class="col">
-                <h1 class="ml-4">Create Activity:</h1>
                     <ol style="list-style-type: none">
+                        <h1 class="ml-4"><strong>Create Activity:</strong></h1>
                         <li><label for="activityName">Activity Name</label></li>
                         <li class="mb-2"><input type="text" name="activityName" placeholder="Activity Name..."></li>
                         <li><label for="activityDate">Activity Date</label></li>

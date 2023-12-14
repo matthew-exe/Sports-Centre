@@ -25,6 +25,19 @@ $_SESSION['last_page_url'] = $_SERVER['REQUEST_URI'];
     <link rel="stylesheet" href="css/styles.min.css">
 </head>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website - Homepage</title>
+    <link rel="icon" href="logo.svg" type="image/x-icon"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.min.css">
+</head>
+
 <!-- Navbar -->
 <nav class="navbar navbar-fixed-top navbar-expand-lg p-3 mb-3 bg-primary">
     <div class="container-fluid d-flex justify-content-between align-items-center">
@@ -63,7 +76,7 @@ $_SESSION['last_page_url'] = $_SERVER['REQUEST_URI'];
 
 <body>
   <!-- Login form -->
-  <div class="container-xxl justify-content-center align-items-center border border-2 border-primary p-3 my-5">
+  <div class="container-xxl align-items-center justify-content-center border border-2 border-primary p-3 my-5">
     <div class="row gx-5 vw-80">
       <div class="col" id="div1">
         <form action="includes/handlers/update_details_handler.inc.php" method="post">
@@ -95,37 +108,48 @@ $_SESSION['last_page_url'] = $_SERVER['REQUEST_URI'];
           ?>
           <button type="submit" class="btn btn-primary text-white mt-3">Update Password</button>
         </form>
+        
+        <div class="d-flex justify-content-end mt-3">
+          <button class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete account</button>
+        </div>
+
+        <!-- Delete modal -->
+        <div class="modal" id="deleteModal" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modalTitle">Delete account?</h4>
+              </div>
+
+              <div class="modal-body">
+                Are you sure you want to delete your account? This cannot be undone.
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <section class="container-fluid">
-        <section class="row justify-content-center align-items-center vw-90 pt-5">
-            <section class="col-12 col-sm-6 col-md-8 border border-3 border-primary rounded-3">
-            <form action="profile.php" method="get" id="searchForm">
-            <div class="input-group mb-3 mt-3">
-                <input type="text" name="searchInput" class="form-control" placeholder="Search" aria-label="search" aria-describedby="basic-addon2">
-                <input type="date" class="form-control" id="dateFilter" name="dateFilter">
-                <div class="input-group-append">
-                    <button class="btn btn-primary ms-2" type="submit">Submit</button>
-                </div>
-            </div>
+  <section class="container-xxl justify-content-center align-items-center border border-2 border-primary pt-4">
+    <h1 class="h1 justify-content-start">Your bookings:</h1>
+    <section class="row vw-80">
+      <section class="col-12 col-sm-12 col-md-12">
+        <form action="profile.php" method="get" id="searchForm">
+          <div class="input-group mb-3 mt-3">
+            <input type="text" name="searchInput" class="form-control" placeholder="Search" aria-label="search" aria-describedby="basic-addon2">
+            <input type="date" class="form-control" id="dateFilter" name="dateFilter">
+            <div class="input-group-append">
+              <button class="btn btn-primary ms-2" type="submit">Submit</button>
+              </div>
+          </div>
         </form>
 
-    
-                <?php
-                    // if (isset($_GET["searchInput"]) || isset($_GET["dateFilter"]) || isset($_GET["filters"])) {
-                    //     $searchInput = isset($_GET["searchInput"]) ? $_GET["searchInput"] : null;
-                    //     $dateFilter = isset($_GET["dateFilter"]) ? $_GET["dateFilter"] : null;
-                    //     $filters = isset($_GET["filters"]) ? $_GET["filters"] : null;
-                    //     displaySearchedEvents($searchInput, $dateFilter, $filters);
-                    // }
-                    // else {
-                    //     displayEvents();
-                    // }
-
-                    
-                ?>
 
                 <?php
                     $page = isset($_GET["page"]) ? $_GET["page"] : 1;
