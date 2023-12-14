@@ -3,10 +3,9 @@
 require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/configs/session.inc.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["userID"])) {
-
+    $activityID = $_POST["activityID"];
+    
     try {
-        $activityID = $_POST["activityID"];
-
         require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/configs/dbh.inc.php";
         require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/controllers/booking_controller.inc.php";
 

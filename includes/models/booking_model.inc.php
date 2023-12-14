@@ -49,7 +49,7 @@ class BookingModel {
     function deleteBooking($activityID, $userID) {
         $query = "DELETE FROM bookings WHERE user_id = :user_id AND activity_id = :activity_id";
         $statement = $this->pdo->prepare($query);
-        $statement->bindValue("userID", $userID);
+        $statement->bindValue("user_id", $userID);
         $statement->bindValue("activity_id", $activityID);
         $statement->execute();
     }

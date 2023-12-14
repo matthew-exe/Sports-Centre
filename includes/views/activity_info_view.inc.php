@@ -31,14 +31,30 @@ function displayExpandedActivity($activityID) {
             <p class="mb-2"><strong>Date:</strong> ' . date("d/m/Y", strtotime($activity["activity_date"])) . '</p>
             ' . checkBookingErrors() . '';
             
-            if (isset($_SESSION["userID"])) {
+            if (isset($_SESSION["userID"]) && $_SESSION["userGroup"] == "Admin" ) {
                 $output .= '
-                <form action="includes/handlers/booking_handler.inc.php" method="post">
-                <button type="submit" class="btn btn-primary mb-2" name="activityID" id="moreInfo" value="' . $activityID . '">Book Activity</button>
+                <div class="container">
+                    <div class="d-flex justify-content-between">
+                        <form action="edit_activity.php" method="get">
+                            <button type="submit" class="btn btn-primary mb-2" name="activityID" id="editActivity" value="' . $activityID . '">Edit Activity</button>
+                        </form>
+                        <form action="activity_attendees.php" method="get">
+                            <button type="submit" class="btn btn-primary mb-2" name="activityID" id="viewAttendees" value="' . $activityID . '">View Attendees</button>
+                        </form>
+                        <form action="includes/handlers/delete_activity_handler.inc.php" method="post">
+                            <button type="submit" class="btn btn-danger mb-2" name="activityID" id="deleteActivity" value="' . $activityID . '">Delete Activity</button>
+                        </form>
+                    </div>
+                </div>
+                '; 
+            } elseif (isset($_SESSION["userID"])) {
+                $output .= '
+                <form action="includes/booking.inc.php" method="post">
+                <button type="submit" class="btn btn-primary mb-2" name="eventID" id="moreInfo" value="' . $eventID . '">Book Event</button>
                 </form>
                 ';
             } else {
-                $output .= '<p style="color: red">Please log in to book this activity.</p>';
+                $output .= '<p style="color: red">Please log in to book this event.</p>';
             }
             
             $output .= '

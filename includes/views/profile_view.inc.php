@@ -41,7 +41,6 @@ function displayUsersBookedActivities($page = 1, $dateFilter = '', $search = '')
     // Get total count of job listings based on search and filter
     $totalBookedActivites = $ActivityController->getTotalUserBookedActivitiesCount($_SESSION["userID"], $dateFilter, $search);
 
-
     if (isset($totalBookedActivites)) {
         $perPage = 4; 
         $totalPages = ceil($totalBookedActivites / $perPage);
@@ -68,9 +67,15 @@ function displayUsersBookedActivities($page = 1, $dateFilter = '', $search = '')
                 <div class="card-body">
                 <h5 class="card-title">' . $result["name"] . '</h5>
                 <p class="card-text">' . $result["shortDescription"] . '</p>
+                <div class="d-flex justify-content-between">
                 <form action="activity_info.php" method="get">
                 <button type="submit" class="btn btn-primary" name="activityID" id="moreInfo" value="' . $result["activity_id"] . '">More info</button>
                 </form>
+                <form action="includes/handlers/cancel_booking_handler.inc.php" method="post">
+                <input type="hidden" name="type" value="event">
+                <button type="submit" class="btn btn-danger" name="activityID" id="cancelBooking" value="' . $result["activity_id"] . '">Cancel Booking</button>
+                </form>
+                </div>
                 </div>
                 </div>
                 ';
@@ -82,9 +87,15 @@ function displayUsersBookedActivities($page = 1, $dateFilter = '', $search = '')
                 <div class="card-body">
                 <h5 class="card-title">' . $result["name"] . '</h5>
                 <p class="card-text">' . $result["shortDescription"] . '</p>
+                <div class="d-flex justify-content-between">
                 <form action="activity_info.php" method="get">
                 <button type="submit" class="btn btn-primary" name="activityID" id="moreInfo" value="' . $result["activity_id"] . '">More info</button>
                 </form>
+                <form action="includes/handlers/cancel_booking_handler.inc.php" method="post">
+                <input type="hidden" name="type" value="event">
+                <button type="submit" class="btn btn-danger" name="activityID" id="cancelBooking" value="' . $result["activity_id"] . '">Cancel Booking</button>
+                </form>
+                </div>
                 </div>
                 </div>
                 ';
@@ -96,9 +107,15 @@ function displayUsersBookedActivities($page = 1, $dateFilter = '', $search = '')
                 <div class="card-body">
                 <h5 class="card-title">' . $result["name"] . '</h5>
                 <p class="card-text">' . $result["shortDescription"] . '</p>
+                <div class="d-flex justify-content-between">
                 <form action="activity_info.php" method="get">
                 <button type="submit" class="btn btn-primary" name="activityID" id="moreInfo" value="' . $result["activity_id"] . '">More info</button>
                 </form>
+                <form action="includes/handlers/cancel_booking_handler.inc.php" method="post">
+                <input type="hidden" name="type" value="event">
+                <button type="submit" class="btn btn-danger" name="activityID" id="cancelBooking" value="' . $result["activity_id"] . '">Cancel Booking</button>
+                </form>
+                </div>
                 </div>
                 </div>
                 </div>

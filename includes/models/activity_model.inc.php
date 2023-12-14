@@ -26,28 +26,37 @@ class ActivityModel {
         return $result['booking_count'];
     }
 
-    public function getTotalActivitiesCount($dateFilter = "", $search = "", $filters) {
+    public function getTotalActivitiesCount($dateFilter = "", $search = "", $filters = []) {
         $dateValue = "%$dateFilter%";
         $searchValue = "%$search%";
-
-        $query = "SELECT COUNT(*) AS total FROM activities WHERE activity_date LIKE :dateFilter AND name LIKE :search;";
+    
+        $bookingCondition = "";
+        if (in_array("notfullybooked", $filters)) {
+            $bookingCondition = " AND (SELECT COUNT(*) FROM bookings WHERE bookings.activity_id = activities.activity_id) < activities.capacity";
+        }
+    
+        $query = "SELECT COUNT(*) AS total FROM activities WHERE activity_date LIKE :dateFilter AND name LIKE :search $bookingCondition;";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue(":dateFilter", $dateValue);
         $statement->bindValue(":search", $searchValue);
         $statement->execute();
-
+    
         return $statement->fetch(PDO::FETCH_ASSOC)['total'];
     }
 
     public function getActivitiesPaginated($perPage, $offset, $dateFilter = "", $search = "", $filters = []) {
         $dateValue = "%$dateFilter%";
         $searchValue = "%$search%";
-
-        if (in_array("closestdate", $filters)) {
-            $query = "SELECT * FROM activities WHERE activity_date LIKE :dateFilter AND name LIKE :search ORDER BY activity_date ASC LIMIT :perPage OFFSET :offset;";
+    
+        $bookingCondition = "";
+        if (in_array("notfullybooked", $filters)) {
+            $bookingCondition = " AND (SELECT COUNT(*) FROM bookings WHERE bookings.activity_id = activities.activity_id) < activities.capacity";
         }
-        else {
-            $query = "SELECT * FROM activities WHERE activity_date LIKE :dateFilter AND name LIKE :search LIMIT :perPage OFFSET :offset;";
+    
+        if (in_array("closestdate", $filters)) {
+            $query = "SELECT * FROM activities WHERE activity_date LIKE :dateFilter AND name LIKE :search $bookingCondition ORDER BY activity_date ASC LIMIT :perPage OFFSET :offset;";
+        } else {
+            $query = "SELECT * FROM activities WHERE activity_date LIKE :dateFilter AND name LIKE :search $bookingCondition LIMIT :perPage OFFSET :offset;";
         }
     
         $statement = $this->pdo->prepare($query);
@@ -56,7 +65,7 @@ class ActivityModel {
         $statement->bindParam(":perPage", $perPage, PDO::PARAM_INT);
         $statement->bindParam(":offset", $offset, PDO::PARAM_INT);
         $statement->execute();
-
+    
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -98,5 +107,26 @@ class ActivityModel {
         $statement->execute();
     
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function createActivity($activityName, $shortDescription, $longDescription, $activityHost, $activityImage, $activityCapacity, $activityTime, $activityDate) {
+        $query = "INSERT INTO activities (name, shortDescription, longDescription, host, image, capacity, activity_time, activity_Date) VALUES (:name, :shortDescription, :longDescription, :host, :image, :capacity, :activity_time, :activity_date);";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue("name", $activityName);
+        $statement->bindValue("shortDescription", $shortDescription);
+        $statement->bindValue("longDescription", $longDescription);
+        $statement->bindValue("host", $activityHost);
+        $statement->bindValue("image", $activityImage);
+        $statement->bindValue("capacity", $activityCapacity);
+        $statement->bindValue("activity_time", $activityTime);
+        $statement->bindValue("activity_date", $activityDate);
+        $statement->execute();
+    }
+
+    function deleteActivity($activityID) {
+        $query = "DELETE FROM activities WHERE activity_id = :activity_id;";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue("activity_id", $activityID);
+        $statement->execute();
     }
 }
