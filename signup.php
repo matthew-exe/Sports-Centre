@@ -1,6 +1,6 @@
 <?php
-require_once "includes/configs/session.inc.php";
-require_once "includes/views/signup_view.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/configs/session.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/views/signup_view.inc.php";
 ?>
 
 
@@ -10,8 +10,8 @@ require_once "includes/views/signup_view.inc.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website - Homepage</title>
-    <link rel="icon" href="logo.svg" type="image/x-icon"/>
+    <title>Signup - Zenith</title>
+    <link rel="icon" href="images/logo.svg.svg" type="image/x-icon"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
@@ -55,7 +55,7 @@ require_once "includes/views/signup_view.inc.php";
 </nav>
 
 <section class="container-fluid">
-    <section class="row justify-content-center align-items-center vh-100">
+    <section class="row justify-content-center align-items-center mt-5">
       <section class="col-12 col-sm-6 col-md-3">
         <form class="form-container bg-white p-5 mb-2 border border-3 border-primary rounded-3" action="includes/handlers/signup_handler.inc.php" method="post">
         <?php 
@@ -74,7 +74,9 @@ require_once "includes/views/signup_view.inc.php";
   </section>
 <body>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
+
+
+<script src="node_modules//bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 

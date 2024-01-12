@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website - Homepage</title>
-    <link rel="icon" href="logo.svg" type="image/x-icon"/>
+    <title>Error - Zenith</title>
+    <link rel="icon" href="images/logo.svg" type="image/x-icon"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
@@ -24,5 +24,5 @@
         </div>
     </body>
 
-
+<script src="node_modules//bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </html>

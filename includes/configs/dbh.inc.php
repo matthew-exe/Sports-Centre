@@ -8,9 +8,10 @@ class dbh {
     private $charset;
 
     public function connect() {
-        $this->host = "localhost";
-        $this->dbname = "myfirstdatabase";
-        $this->dbusername = "root";
+		// Set these to fit your hosting enviroment
+        $this->host = "";
+        $this->dbname = "";
+        $this->dbusername = "";
         $this->dbpassword = "";
         $this->charset = "utf8mb4";
 

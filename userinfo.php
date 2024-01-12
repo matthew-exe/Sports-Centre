@@ -63,5 +63,19 @@
         }
     ?>
 
+
+    <footer class="footer container-fluid d-flex justify-content-between align-items-center py-3 mt-4 border-top bg-primary position-absolute start-50 top-100 translate-middle">
+        <p class="col-md-4 mb-0 text-white">© 2023 Zenith Sports Hub </p>
+
+        <a class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" href="index.php">
+            <img src="images/logo.svg" width="40" height="32">
+        </a>
+
+        <ul class="nav col-md-4 justify-content-end">
+            <li class="nav-item"><a href="index.php" class="nav-link px-2 text-white">Home</a></li>
+            <li class="nav-item"><a href="activities.php" class="nav-link px-2 text-white">Activities</a></li>
+        </ul>
+    </footer>
+<script src="node_modules//bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

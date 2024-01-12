@@ -1,16 +1,19 @@
 <?php
 
-class UserModel {
+class UserModel
+{
     private $pdo;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
 
     // Managing users funcitons
 
-    public function getEmail($email) {
+    public function getEmail($email)
+    {
         $query = "SELECT email FROM users WHERE email = :email;";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue("email", $email);
@@ -18,7 +21,8 @@ class UserModel {
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getUserFromEmail($email) {
+    public function getUserFromEmail($email)
+    {
         $query = "SELECT * FROM users WHERE email = :email;";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue("email", $email);
@@ -26,7 +30,8 @@ class UserModel {
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getUserFromID($userID) {
+    public function getUserFromID($userID)
+    {
         $query = "SELECT * FROM users WHERE user_id = :user_id;";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue("user_id", $userID);
@@ -34,19 +39,21 @@ class UserModel {
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getUserGroup($userID) {
+    public function getUserGroup($userID)
+    {
         $query = "SELECT groups.group_name
                   FROM group_users
                   INNER JOIN groups ON group_users.group_id = groups.group_id
                   WHERE group_users.user_id = :user_id";
-    
+
         $statement = $this->pdo->prepare($query);
         $statement->bindParam(":user_id", $userID);
         $statement->execute();
         return $statement->fetchColumn();
     }
 
-    public function updateUser($attributeToUpdate, $updatedValue, $userID) {
+    public function updateUser($attributeToUpdate, $updatedValue, $userID)
+    {
         $query = "UPDATE users SET $attributeToUpdate = :updatedValue WHERE user_id = :user_id;";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue("updatedValue", $updatedValue);
@@ -55,7 +62,8 @@ class UserModel {
     }
 
 
-    public function updatePwd($pwd, $userID) {
+    public function updatePwd($pwd, $userID)
+    {
         $query = "UPDATE users SET pwd = :hashedPwd WHERE user_id = :user_id;";
         $statement = $this->pdo->prepare($query);
 
@@ -87,7 +95,8 @@ class UserModel {
         return $this->pdo->lastInsertId();
     }
 
-    public function setUserGroup($userID, $groupID) {
+    public function setUserGroup($userID, $groupID)
+    {
         $query = "INSERT INTO group_users (user_id, group_id) VALUES (:user_id, :group_id);";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue("user_id", $userID);
@@ -95,58 +104,90 @@ class UserModel {
         $statement->execute();
     }
 
-    function deleteUser($userID) {
-        $query = "DELETE FROM users WHERE userID = :userID;";
+    public function deleteUser($userID)
+    {
+        $query = "DELETE FROM users WHERE user_id = :user_id;";
         $statement = $this->pdo->prepare($query);
-        $statement->bindValue("userID", $userID);
+        $statement->bindValue("user_id", $userID);
         $statement->execute();
     }
 
     // Displaying Users for Admin Portal
 
-    public function getTotalUsersCount($filter = "", $search = "") {
-        $filterValue = "%$filter%";
+    public function getTotalUsersCount($search = "")
+    {
         $searchValue = "%$search%";
 
         $query = "SELECT COUNT(*) AS total FROM users 
-            INNER JOIN user_groups ON users.userID = user_groups.userID
-            INNER JOIN groups ON user_groups.groupID = groups.groupID
-            WHERE (groups.groupName LIKE :filter OR :filter = '')
-            AND (users.userid LIKE :search 
-            OR users.firstname LIKE :search 
-            OR users.lastname LIKE :search 
-            OR users.email LIKE :search)
+        WHERE (users.user_id LIKE :search 
+        OR users.firstname LIKE :search 
+        OR users.surname LIKE :search 
+        OR users.email LIKE :search)
         ";
         $statement = $this->pdo->prepare($query);
-        $statement->bindValue(":filter", $filterValue);
         $statement->bindValue(":search", $searchValue);
         $statement->execute();
-    
+
         return $statement->fetch(PDO::FETCH_ASSOC)['total'];
     }
 
-    public function getUsersPaginated($perPage, $offset, $filter = "", $search = "") {
-        $filterValue = "%$filter%";
-        $searchValue = "%$search%";
-        
-        $query = "SELECT users.*, groups.groupName FROM users 
-            INNER JOIN user_groups ON users.userID = user_groups.userID
-            INNER JOIN groups ON user_groups.groupID = groups.groupID
-            WHERE (groups.groupName LIKE :filter OR :filter = '')
-            AND (users.userid LIKE :search 
-            OR users.firstname LIKE :search 
-            OR users.lastname LIKE :search 
-            OR users.email LIKE :search)
-            LIMIT :perPage OFFSET :offset";
-        
+    public function getUsersPaginated($perPage, $offset, $search = "")
+    {
+        $searchValue = "%$search";
+
+        $query = "SELECT users.*, groups.group_name 
+              FROM users 
+              LEFT JOIN group_users ON users.user_id = group_users.user_id
+              LEFT JOIN groups ON group_users.group_id = groups.group_id
+              WHERE (users.user_id LIKE :search 
+                     OR users.firstname LIKE :search 
+                     OR users.surname LIKE :search 
+                     OR users.email LIKE :search)
+              LIMIT :perPage OFFSET :offset";
+
         $statement = $this->pdo->prepare($query);
-        $statement->bindValue(":filter", $filterValue);
         $statement->bindValue(":search", $searchValue);
         $statement->bindParam(":perPage", $perPage, PDO::PARAM_INT);
         $statement->bindParam(":offset", $offset, PDO::PARAM_INT);
         $statement->execute();
-    
+
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Displaying users that have booked an activity
+
+    public function getTotalUsersBookedForActivityCount($activityID, $search = "") {
+        $searchValue = "%$search%";
+
+        $query = "SELECT COUNT(*) AS total FROM users 
+              INNER JOIN bookings ON users.user_id = bookings.user_id 
+              WHERE bookings.activity_id = :activity_id
+              AND (users.firstname LIKE :search OR users.surname LIKE :search OR users.email LIKE :search);";
+
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(":activity_id", $activityID);
+        $statement->bindValue(":search", $searchValue);
+        $statement->execute();
+
+        return $statement->fetch(PDO::FETCH_ASSOC)['total'];
+    }
+
+    public function getUsersBookedForActivityPaginated($activityID, $perPage, $offset, $search = "") {
+        $searchValue = "%$search%";
+
+        $query = "SELECT users.* FROM users
+              INNER JOIN bookings ON users.user_id = bookings.user_id 
+              WHERE bookings.activity_id = :activity_id
+              AND (users.firstname LIKE :search OR users.surname LIKE :search OR users.email LIKE :search)
+              LIMIT :perPage OFFSET :offset;";
+
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(":activity_id", $activityID);
+        $statement->bindValue(":search", $searchValue);
+        $statement->bindParam(":perPage", $perPage, PDO::PARAM_INT);
+        $statement->bindParam(":offset", $offset, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

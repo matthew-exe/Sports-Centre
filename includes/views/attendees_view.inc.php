@@ -1,32 +1,17 @@
 <?php
 
-function checkActivityCreationErrors() {
-    if(isset($_SESSION["activityCreationErrors"])) {
-        $errors = $_SESSION["activityCreationErrors"];
-        
-        foreach ($errors as $error) {
-            echo "<p class='text-danger'>$error</p>";
-        }
-
-        unset($_SESSION["activityCreationErrors"]);
-    } else if (isset($_GET["creation"]) && $_GET["creation"] === "success") {
-        echo '<p class="ml-4 text-success">Event Created Successfully!</p>';
-    }
-}
-
-
-function displayUsers($page = 1, $search = '') {
+function displayAttendingUsers($activityID, $page = 1, $search = '') {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/wpassignment/includes/configs/dbh.inc.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/wpassignment/includes/controllers/user_controller.inc.php";
 
     $dbh = new dbh();
     $userController = new UserController($dbh->connect());
 
-    // Get total count of users based on search
-    $totalUsers = $userController->getTotalUsersCount($search);
+    // Get total count of users who booked activity based on search
+    $totalUsers = $userController->getTotalUsersBookedForActivityCount($activityID, $search);
 
     if (isset($totalUsers)) {
-        $perPage = 4;
+        $perPage = 8;
         $totalPages = ceil($totalUsers / $perPage);
     } else {
         $totalPages = 0;
@@ -35,10 +20,9 @@ function displayUsers($page = 1, $search = '') {
     // Calculate the offset for the SQL query based on current page
     $offset = (intval($page) - 1) * $perPage;
 
-    // Get job listings for the current page based on search and filter
-    $users = $userController->getUsersPaginated($perPage, $offset, $search);
+    // Get users who have booked activity for the current page based on search and filter
+    $users = $userController->getUsersBookedForActivityPaginated($activityID, $perPage, $offset, $search);
 
-    $output = "";
     if ($users) {
         $counter = 1;
         foreach ($users as $user) {
@@ -51,13 +35,10 @@ function displayUsers($page = 1, $search = '') {
                 <div class="card-body">
                 <h5 class="card-title">' . htmlspecialchars($user["firstname"]) . " " . htmlspecialchars($user["surname"]) . '</h5>
                 <p class="card-text">' . htmlspecialchars($user["email"]) . '</p>
-                <p class="card-text">Group: ' . htmlspecialchars($user["group_name"]) . '</p>
                 <div class="d-flex justify-content-start">
-                <form action="edit_user.php" method="get">
-                <button type="submit" class="btn btn-primary" name="userID" id="editUser" value="' . htmlspecialchars($user["user_id"]) . '">Edit User</button>
-                </form>
-                <form action="includes/handlers/delete_user_handler.inc.php" method="post" class="mx-3">
-                <button type="submit" class="btn btn-danger" name="userID" id="deleteUser" value="' . htmlspecialchars($user["user_id"]) . '">Delete User</button>
+                <form action="includes/handlers/cancel_booking_handler.inc.php" method="post">
+                <input type="hidden" name="activityID" value="'.$_GET['activityID'].'">
+                <button type="submit" class="btn btn-danger" name="userID" id="cancelBooking" value="' . htmlspecialchars($user["user_id"]) . '">Cancel Booking</button>
                 </form>
                 </div>
                 </div>
@@ -71,13 +52,10 @@ function displayUsers($page = 1, $search = '') {
                 <div class="card-body">
                 <h5 class="card-title">' . htmlspecialchars($user["firstname"]) . " " . htmlspecialchars($user["surname"]) . '</h5>
                 <p class="card-text">' . htmlspecialchars($user["email"]) . '</p>
-                <p class="card-text">Group: ' . htmlspecialchars($user["group_name"]) . '</p>
                 <div class="d-flex justify-content-start">
-                <form action="edit_user.php" method="get">
-                <button type="submit" class="btn btn-primary" name="userID" id="editUser" value="' . htmlspecialchars($user["user_id"]) . '">Edit User</button>
-                </form>
-                <form action="includes/handlers/delete_user_handler.inc.php" method="post" class="mx-3">
-                <button type="submit" class="btn btn-danger" name="userID" id="deleteUser" value="' . htmlspecialchars($user["user_id"]) . '">Delete User</button>
+                <form action="includes/handlers/cancel_booking_handler.inc.php" method="post">
+                <input type="hidden" name="activityID" value="'.$_GET['activityID'].'">
+                <button type="submit" class="btn btn-danger" name="userID" id="cancelBooking" value="' . htmlspecialchars($user["user_id"]) . '">Cancel Booking</button>
                 </form>
                 </div>
                 </div>
@@ -91,13 +69,10 @@ function displayUsers($page = 1, $search = '') {
                 <div class="card-body">
                 <h5 class="card-title">' . htmlspecialchars($user["firstname"]) . " " . htmlspecialchars($user["surname"]) . '</h5>
                 <p class="card-text">' . htmlspecialchars($user["email"]) . '</p>
-                <p class="card-text">Group: ' . htmlspecialchars($user["group_name"]) . '</p>
                 <div class="d-flex justify-content-start">
-                <form action="edit_user.php" method="get">
-                <button type="submit" class="btn btn-primary" name="userID" id="editUser" value="' . htmlspecialchars($user["user_id"]) . '">Edit User</button>
-                </form>
-                <form action="includes/handlers/delete_user_handler.inc.php" method="post" class="mx-3">
-                <button type="submit" class="btn btn-danger" name="userID" id="deleteUser" value="' . htmlspecialchars($user["user_id"]) . '">Delete User</button>
+                <form action="includes/handlers/cancel_booking_handler.inc.php" method="post">
+                <input type="hidden" name="activityID" value="'.$_GET['activityID'].'">
+                <button type="submit" class="btn btn-danger" name="userID" id="cancelBooking" value="' . htmlspecialchars($user["user_id"]) . '">Cancel Booking</button>
                 </form>
                 </div>
                 </div>

@@ -1,13 +1,13 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/configs/session.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/configs/session.inc.php";
 
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["userID"])) {
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["userID"]) && $_SESSION["userGroup"] === "Member") {
     $activityID = $_POST["activityID"];
     
     try {
-        require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/configs/dbh.inc.php";
-        require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/controllers/booking_controller.inc.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/configs/dbh.inc.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/controllers/booking_controller.inc.php";
 
         $dbh = new dbh();
         $bookingController = new BookingController($dbh->connect());
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["userID"])) {
         $errors = [];
         
         if ($bookingController->isAlreadyBooked($activityID, $_SESSION["userID"])) {
-            $errors["alreadyBooked"] = "You have already booked this job listing! Unbook on the profile page!";
+            $errors["alreadyBooked"] = "You have already booked this activity! Unbook on the profile page!";
         }
 
         else if ($bookingController->isActivityFull($activityID)) {

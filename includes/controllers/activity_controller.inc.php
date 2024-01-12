@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/models/activity_model.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/models/activity_model.inc.php";
 
 class ActivityController extends ActivityModel {
 
@@ -7,7 +7,7 @@ class ActivityController extends ActivityModel {
         parent::__construct($pdo);
     }
 
-    public function isCreateActivityInputEmpty($activityName, $shortDescription, $longDescription, $activityHost, $activityImage, $activityCapacity, $activityTime, $activityDate) {
+    public function isActivityInputEmpty($activityName, $shortDescription, $longDescription, $activityHost, $activityImage, $activityCapacity, $activityTime, $activityDate) {
         if (empty($activityName) || empty($shortDescription) || empty($longDescription) || empty($activityHost) || empty($activityImage) || empty($activityCapacity) || empty($activityTime) || empty($activityDate)) {
             return true;
         }

@@ -1,10 +1,10 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/configs/session.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/configs/session.inc.php";
 if (!isset($_SESSION["userID"]) || $_SESSION["userGroup"] != "Admin") {
     header("Location: index.php");
     die();
 }
-require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/views/edit_activity_view.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/views/edit_activity_view.inc.php";
 ?>
 
 
@@ -13,8 +13,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/views/edit_ac
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website - Homepage</title>
-    <link rel="icon" href="logo.svg" type="image/x-icon"/>
+    <title>Edit Activity - Zenith</title>
+    <link rel="icon" href="images/logo.svg" type="image/x-icon"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
@@ -63,4 +63,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/views/edit_ac
             displayEditActivity($_GET["activityID"]);
         }
     ?>
+
+
+<script src="node_modules//bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

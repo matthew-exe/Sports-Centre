@@ -1,9 +1,9 @@
 <?php
 
 function displayProfileData() {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/Web-Programming/includes/configs/session.inc.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/Web-Programming/includes/configs/dbh.inc.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/Web-Programming/includes/controllers/user_controller.inc.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/wpassignment/includes/configs/session.inc.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/wpassignment/includes/configs/dbh.inc.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/wpassignment/includes/controllers/user_controller.inc.php";
 
     $dbh = new dbh();
     $UserController = new UserController($dbh->connect());
@@ -32,14 +32,15 @@ function displayProfileData() {
 }
 
 function displayUsersBookedActivities($page = 1, $dateFilter = '', $search = '') {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/Web-Programming/includes/configs/dbh.inc.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/Web-Programming/includes/controllers/activity_controller.inc.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/wpassignment/includes/configs/dbh.inc.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/wpassignment/includes/configs/session.inc.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/wpassignment/includes/controllers/activity_controller.inc.php";
 
     $dbh = new dbh();
-    $ActivityController = new ActivityController($dbh->connect());
+    $activityController = new activityController($dbh->connect());
 
-    // Get total count of job listings based on search and filter
-    $totalBookedActivites = $ActivityController->getTotalUserBookedActivitiesCount($_SESSION["userID"], $dateFilter, $search);
+    // Get total count of users booked activites based on search and filter
+    $totalBookedActivites = $activityController->getTotalUserBookedActivitiesCount($_SESSION["userID"], $dateFilter, $search);
 
     if (isset($totalBookedActivites)) {
         $perPage = 4; 
@@ -51,8 +52,8 @@ function displayUsersBookedActivities($page = 1, $dateFilter = '', $search = '')
     // Calculate the offset for the SQL query based on current page
     $offset = (intval($page) - 1) * $perPage;
 
-    // Get job listings for the current page based on search and filter
-    $activites = $ActivityController->getUserBookedActivitiesPaginated($_SESSION["userID"], $perPage, $offset, $dateFilter, $search);
+    // Get users booked activties for the current page based on search and filter
+    $activites = $activityController->getUserBookedActivitiesPaginated($_SESSION["userID"], $perPage, $offset, $dateFilter, $search);
 
     $output = "";
     if ($activites) {
@@ -62,18 +63,18 @@ function displayUsersBookedActivities($page = 1, $dateFilter = '', $search = '')
                 $output = '
                 <div class="row my-5">
                 <div class="card-group justify-content-start">
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
-                <img src="images/' . $result["image"] . '" class="card-img-top" alt="...">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" id="outputCard">
+                <img src="images/' . htmlspecialchars($result["image"]) . '" class="card-img-top" alt="...">
                 <div class="card-body">
-                <h5 class="card-title">' . $result["name"] . '</h5>
-                <p class="card-text">' . $result["shortDescription"] . '</p>
-                <div class="d-flex justify-content-between">
+                <h5 class="card-title">' . htmlspecialchars($result["name"]) . '</h5>
+                <p class="card-text">' . htmlspecialchars($result["short_description"]) . '</p>
+                <div class="d-flex justify-content-start">
                 <form action="activity_info.php" method="get">
-                <button type="submit" class="btn btn-primary" name="activityID" id="moreInfo" value="' . $result["activity_id"] . '">More info</button>
+                <button type="submit" class="btn btn-primary" name="activityID" id="moreInfo" value="' . htmlspecialchars($result["activity_id"]) . '">More info</button>
                 </form>
-                <form action="includes/handlers/cancel_booking_handler.inc.php" method="post">
+                <form action="includes/handlers/cancel_booking_handler.inc.php" method="post" class="mx-3">
                 <input type="hidden" name="type" value="event">
-                <button type="submit" class="btn btn-danger" name="activityID" id="cancelBooking" value="' . $result["activity_id"] . '">Cancel Booking</button>
+                <button type="submit" class="btn btn-danger" name="activityID" id="cancelBooking" value="' . htmlspecialchars($result["activity_id"]) . '">Cancel Booking</button>
                 </form>
                 </div>
                 </div>
@@ -82,18 +83,18 @@ function displayUsersBookedActivities($page = 1, $dateFilter = '', $search = '')
                 $counter++;
             }  else if ($counter !== 1 && $counter < 4) {
                 $output .= '
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
-                <img src="images/' . $result["image"] . '" class="card-img-top" alt="...">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" id="outputCard">
+                <img src="images/' . htmlspecialchars($result["image"]) . '" class="card-img-top" alt="...">
                 <div class="card-body">
-                <h5 class="card-title">' . $result["name"] . '</h5>
-                <p class="card-text">' . $result["shortDescription"] . '</p>
-                <div class="d-flex justify-content-between">
+                <h5 class="card-title">' . htmlspecialchars($result["name"]) . '</h5>
+                <p class="card-text">' . htmlspecialchars($result["short_description"]) . '</p>
+                <div class="d-flex justify-content-start">
                 <form action="activity_info.php" method="get">
-                <button type="submit" class="btn btn-primary" name="activityID" id="moreInfo" value="' . $result["activity_id"] . '">More info</button>
+                <button type="submit" class="btn btn-primary" name="activityID" id="moreInfo" value="' . htmlspecialchars($result["activity_id"]) . '">More info</button>
                 </form>
-                <form action="includes/handlers/cancel_booking_handler.inc.php" method="post">
+                <form action="includes/handlers/cancel_booking_handler.inc.php" method="post" class="mx-3">
                 <input type="hidden" name="type" value="event">
-                <button type="submit" class="btn btn-danger" name="activityID" id="cancelBooking" value="' . $result["activity_id"] . '">Cancel Booking</button>
+                <button type="submit" class="btn btn-danger" name="activityID" id="cancelBooking" value="' . htmlspecialchars($result["activity_id"]) . '">Cancel Booking</button>
                 </form>
                 </div>
                 </div>
@@ -102,18 +103,18 @@ function displayUsersBookedActivities($page = 1, $dateFilter = '', $search = '')
                 $counter++;
             } else {
                 $output .= '
-                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" style="max-width: 18rem;">
-                <img src="images/' . $result["image"] . '" class="card-img-top" alt="...">
+                <div class="card mx-2 bg-light text-dark border border-2 border-primary rounded-3" id="outputCard">
+                <img src="images/' . htmlspecialchars($result["image"]) . '" class="card-img-top" alt="...">
                 <div class="card-body">
-                <h5 class="card-title">' . $result["name"] . '</h5>
-                <p class="card-text">' . $result["shortDescription"] . '</p>
-                <div class="d-flex justify-content-between">
+                <h5 class="card-title">' . htmlspecialchars($result["name"]) . '</h5>
+                <p class="card-text">' . htmlspecialchars($result["short_description"]) . '</p>
+                <div class="d-flex justify-content-start">
                 <form action="activity_info.php" method="get">
-                <button type="submit" class="btn btn-primary" name="activityID" id="moreInfo" value="' . $result["activity_id"] . '">More info</button>
+                <button type="submit" class="btn btn-primary" name="activityID" id="moreInfo" value="' . htmlspecialchars($result["activity_id"]) . '">More info</button>
                 </form>
-                <form action="includes/handlers/cancel_booking_handler.inc.php" method="post">
+                <form action="includes/handlers/cancel_booking_handler.inc.php" method="post" class="mx-3">
                 <input type="hidden" name="type" value="event">
-                <button type="submit" class="btn btn-danger" name="activityID" id="cancelBooking" value="' . $result["activity_id"] . '">Cancel Booking</button>
+                <button type="submit" class="btn btn-danger" name="activityID" id="cancelBooking" value="' . htmlspecialchars($result["activity_id"]) . '">Cancel Booking</button>
                 </form>
                 </div>
                 </div>
@@ -150,7 +151,7 @@ function displayUsersBookedActivities($page = 1, $dateFilter = '', $search = '')
     
 
     $dbh = null;
-    $ActivityController = null;
+    $activityController = null;
 }
 
 function checkUpdateDetailsErrors() {
@@ -159,12 +160,12 @@ function checkUpdateDetailsErrors() {
         unset($_SESSION["updateDetailsErrors"]);
 
     foreach ($errors as $error) {
-        echo "<p style='color: red'>$error</p>";
+        echo "<p class='text-danger'>$error</p>";
     }
 
     }
     else if (isset($_GET["updateDetails"]) && $_GET["updateDetails"] === "success") {
-        echo "<p style='color: green'>Profile Information Updated!</p>";
+        echo "<p class='ml-4 text-success'>Profile Information Updated!</p>";
     }
 }
 
@@ -174,12 +175,12 @@ function checkUpdatePasswordErrors() {
         unset($_SESSION["updatePasswordErrors"]);
 
     foreach ($errors as $error) {
-        echo "<p style='color: red'>$error</p>";
+        echo "<p class='text-danger'>$error</p>";
     }
 
     
     }
     else if (isset($_GET["updatePassword"]) && $_GET["updatePassword"] === "success") {
-        echo "<p style='color: green'>Password Updated!</p>";
+        echo "<p class='ml-4 text-success'>Password Updated!</p>";
     }
 }

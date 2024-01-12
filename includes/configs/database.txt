@@ -11,8 +11,8 @@ CREATE TABLE users (
 CREATE TABLE activities (
     activity_id int(11) NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
-    shortDescription VARCHAR(255) NOT NULL,
-    longDescription TEXT NOT NULL,
+    short_description VARCHAR(255) NOT NULL,
+    long_description TEXT NOT NULL,
     host VARCHAR(50) NOT NULL,
     image VARCHAR(255) NOT NULL,
     capacity int(11) NOT NULL,
