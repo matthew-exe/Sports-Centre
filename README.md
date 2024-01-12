@@ -1,0 +1,1 @@
+This is a website that I have made for my web programming assignment at university, we had to use PHP for the backend. In order for it to work you will have to go within "includes/configs/dbh.inc.php" and set the variables to match your hosting enviroment.
