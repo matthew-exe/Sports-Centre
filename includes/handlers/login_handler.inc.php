@@ -5,9 +5,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $pwd = $_POST["pwd"];
 
     try {
-        require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/configs/dbh.inc.php";
-        require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/configs/session.inc.php";
-        require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/controllers/user_controller.inc.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/configs/dbh.inc.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/configs/session.inc.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/controllers/user_controller.inc.php";
 
         $dbh = new dbh();
         $userController = new UserController($dbh->connect());

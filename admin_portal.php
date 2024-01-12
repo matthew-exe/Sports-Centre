@@ -1,10 +1,12 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/configs/session.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/configs/session.inc.php";
 if (!isset($_SESSION["userID"]) || $_SESSION["userGroup"] != "Admin") {
     header("Location: index.php");
     die();
 }
-require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/views/admin_portal_view.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/views/admin_portal_view.inc.php";
+
+$_SESSION['last_page_url'] = $_SERVER['REQUEST_URI'];
 ?>
 
 
@@ -13,8 +15,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/views/admin_p
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website - Homepage</title>
-    <link rel="icon" href="logo.svg" type="image/x-icon"/>
+    <title>Admin Portal - Zenith</title>
+    <link rel="icon" href="images/logo.svg" type="image/x-icon"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
@@ -58,19 +60,24 @@ require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/views/admin_p
 </nav>
 
 <body>
-    
+
+
+    <section class="col-12 col-sm-6 col-md-8 mt-5 mb-5 justify-content-center mx-auto border border-3 border-primary rounded-3">
+        <h1 class="text-center">Admin Portal</h1>
+    </section>
+
     <form action="includes/handlers/create_activity_handler.inc.php" method="POST">
         <div class="container col-12 col-sm-6 col-md-8 border border-3 border-primary rounded-3">
             <div class="row">
                 <div class="col">
-                    <ol style="list-style-type: none">
-                        <h1 class="ml-4"><strong>Create Activity:</strong></h1>
+                    <ol class="list-unstyled">
+                        <h1 class="ml-4">Create Activity:</h1>
                         <li><label for="activityName">Activity Name</label></li>
-                        <li class="mb-2"><input type="text" name="activityName" placeholder="Activity Name..."></li>
+                        <li class="mb-2"><input type="text" name="activityName" placeholder="Activity Name..." required></li>
                         <li><label for="activityDate">Activity Date</label></li>
-                        <li class="mb-2"><input type="date" name="activityDate"></li>
+                        <li class="mb-2"><input type="date" name="activityDate" required></li>
                         <li><label for="activityTime">Activity Time</label></li>
-                        <li class="mb-2"><input type="time" name="activityTime"></li>
+                        <li class="mb-2"><input type="time" name="activityTime" required></li>
                         <li><label for="activityHost">Activity Host</label></li>
                         <li class="mb-2"><select name="activityHost"></li>
                             <option value="Jamie">Jamie</option>
@@ -80,21 +87,27 @@ require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/views/admin_p
                             <option value="Gab">Gab</option>
                         <li class="mb-2"></select></li>
                         <li><label for="activityCapacity">Activity Capacity</label></li>
-                        <li class="mb-2"><input type="text" name="activityCapacity" placeholder="Activity Capacity"></li>
+                        <li class="mb-2"><input type="text" name="activityCapacity" placeholder="Activity Capacity" required></li>
                         <li class="mb-2"><label for="activityImage">Activity Image</label></li>
                         <li class="mb-2"><select name="activityImage">
-                            <option value="bighenchman.jpg">Big Hench Man</option>
-                            <option value="hellokitty.jpg">Hello Kitty</option>
-                            <option value="wegogym.jpg">We Go Gym</option>
+                                <option value="badminton.png">Badminton</option>
+                                <option value="basketball.png">Basketball</option>
+                                <option value="dodgeball.png">Dodgeball</option>
+                                <option value="kick_boxing.png">Kick Boxing</option>
+                                <option value="krav_maga.png">Krav Maga</option>
+                                <option value="swimming.png">Swimming</option>
+                                <option value="table_tennis.png">Table Tennis</option>
+                                <option value="volleyball.png">Volleyball</option>
                             </select></li>
                     </ol>
                 </div>
                 <div class="col mt-2">
-                    <ol class="mt-5" style="list-style-type: none">
+                    <ol class="mt-5 list-unstyled">
                         <li><label for="shortDescription">Short Description For This Activity</label></li>
-                        <li class="mb-2"><input style="height: 75px; width: 300px" type="text" name="shortDescription" placeholder="Enter short Decription"></li>
+                        <li class="mb-2"><input type="text" name="shortDescription" placeholder="Enter short Decription" class="form-control w-75" required></li>
                         <li class="mb-2"><label for="longDescription">Long Description For This Activity</label></li>
-                        <li class="mb-2"><textarea style="height: 150px; width: 300px" name="longDescription" placeholder="Enter Long Decription"></textarea></li>
+                        <li class="mb-2"><textarea name="longDescription" placeholder="Enter Long Description" class="form-control w-75" required></textarea>
+                        </li>
                         <li class="mb-2"><button type="submit" class="ml-1 mt-3 btn btn-primary">Submit</button></li>
                     </ol>
                     <?php 
@@ -117,17 +130,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/views/admin_p
                     </div>
                 </div>
             </form>
-    
+
                 <?php
-                    // if (isset($_GET["searchInput"])) {
-                    //     displaySearchedUsers($_GET["searchInput"]);
-                    // }
-                    // else {
-                    //     displayUsers();
-                    // }
+                $page = isset($_GET["page"]) ? $_GET["page"] : 1;
+                $search = isset($_GET["searchInput"]) ? $_GET["searchInput"] : '';
+
+                displayUsers($page, $search);
                 ?>
             </section>
         </section>
     </section>
 
+
+<script src="node_modules//bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

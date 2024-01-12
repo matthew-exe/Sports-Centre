@@ -8,9 +8,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $confirmPwd = $_POST["confirmPwd"];
 
     try {
-        require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/configs/dbh.inc.php";
-        require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/configs/session.inc.php";
-        require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/controllers/user_controller.inc.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/configs/dbh.inc.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/configs/session.inc.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/controllers/user_controller.inc.php";
 
         $dbh = new dbh();
         $userController = new UserController($dbh->connect());
@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Creating the user and getting the userID of the new user
         $userID = $userController->createUser($firstname, $surname, $email, $pwd);
         // Using that userID to add the user to the Member group
-        $userController->setUserGroup($userID, 2); 
+        $userController->setUserGroup($userID, 1);
 
         header("Location: ../../signup.php?signup=success");
 

@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/models/user_model.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/models/user_model.inc.php";
 
 class UserController extends UserModel {
 
@@ -36,6 +36,15 @@ class UserController extends UserModel {
 
     function isUpdatePasswordInputEmpty($pwd, $newPwd, $confirmPwd) {
         if (empty($pwd) || empty($newPwd) || empty($confirmPwd)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function isEditPasswordInputEmpty($newPwd, $confirmPwd) {
+        if (empty($newPwd) || empty($confirmPwd)) {
             return true;
         }
         else {

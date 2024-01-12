@@ -11,7 +11,9 @@ $info: #90E0EF;
 $blue-100: #CAF0F8;
 // add variables here from bootstrap/scss/...
 
-
+#outputCard {
+  max-width: 18rem;
+}
 
 // import bootstrap, also important to keep this at the end of file
 @import '../node_modules/bootstrap/scss/bootstrap';

@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] ."/Web-Programming/includes/models/booking_model.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/models/booking_model.inc.php";
 
 class BookingController extends BookingModel {
 

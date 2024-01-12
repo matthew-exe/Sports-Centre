@@ -1,10 +1,10 @@
 <?php
-require_once "includes/configs/session.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/configs/session.inc.php";
 if (!isset($_SESSION["userID"])) {
     header("Location: error.php");
     die();
 }
-require_once "includes/views/profile_view.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT'] ."/wpassignment/includes/views/profile_view.inc.php";
 
 $_SESSION['last_page_url'] = $_SERVER['REQUEST_URI'];
 ?>
@@ -17,7 +17,7 @@ $_SESSION['last_page_url'] = $_SERVER['REQUEST_URI'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website - Homepage</title>
+    <title>Profile - Zenith</title>
     <link rel="icon" href="logo.svg" type="image/x-icon"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,14 +31,13 @@ $_SESSION['last_page_url'] = $_SERVER['REQUEST_URI'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website - Homepage</title>
-    <link rel="icon" href="logo.svg" type="image/x-icon"/>
+    <link rel="icon" href="images/logo.svg.svg" type="image/x-icon"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.min.css">
 </head>
 
-<!-- Navbar -->
 <nav class="navbar navbar-fixed-top navbar-expand-lg p-3 mb-3 bg-primary">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <a class="navbar-brand" href="index.php" id="logo">
@@ -75,8 +74,12 @@ $_SESSION['last_page_url'] = $_SERVER['REQUEST_URI'];
 </nav>
 
 <body>
-  <!-- Login form -->
-  <div class="container-xxl align-items-center justify-content-center border border-2 border-primary p-3 my-5">
+
+<section class="container-xxl align-items-center justify-content-center border border-3 border-primary my-5 rounded-3">
+    <h1 class="text-center">Profile</h1>
+</section>
+
+  <div class="container-xxl align-items-center justify-content-center border border-3 border-primary rounded-3 p-3 my-5">
     <div class="row gx-5 vw-80">
       <div class="col" id="div1">
         <form action="includes/handlers/update_details_handler.inc.php" method="post">
@@ -108,34 +111,19 @@ $_SESSION['last_page_url'] = $_SERVER['REQUEST_URI'];
           ?>
           <button type="submit" class="btn btn-primary text-white mt-3">Update Password</button>
         </form>
-        
-        <div class="d-flex justify-content-end mt-3">
-          <button class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete account</button>
-        </div>
-
-        <!-- Delete modal -->
-        <div class="modal" id="deleteModal" tabindex="-1">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title" id="modalTitle">Delete account?</h4>
+          <?php if ($_SESSION["userGroup"] === "Member") { ?>
+          <form action="includes/handlers/delete_user_handler.inc.php" method="post">
+              <input type="hidden" name="userID" value="<?php echo $_SESSION["userID"]; ?>">
+              <div class="d-flex justify-content-end mt-3">
+                  <button type="submit" class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete account</button>
               </div>
-
-              <div class="modal-body">
-                Are you sure you want to delete your account? This cannot be undone.
-              </div>
-
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Delete</button>
-              </div>
-            </div>
-          </div>
-        </div>
+          </form>
+          <?php } ?>
       </div>
     </div>
   </div>
 
+  <?php if ($_SESSION["userGroup"] === "Member") { ?>
   <section class="container-xxl justify-content-center align-items-center border border-2 border-primary pt-4">
     <h1 class="h1 justify-content-start">Your bookings:</h1>
     <section class="row vw-80">
@@ -152,21 +140,18 @@ $_SESSION['last_page_url'] = $_SERVER['REQUEST_URI'];
 
 
                 <?php
-                    $page = isset($_GET["page"]) ? $_GET["page"] : 1;
-                    $dateFilter = isset($_GET["dateFilter"]) ? $_GET["dateFilter"] : '';
-                    $search = isset($_GET["searchInput"]) ? $_GET["searchInput"] : '';
-                
-                    displayUsersBookedActivities($page, $dateFilter, $search);
+                $page = isset($_GET["page"]) ? $_GET["page"] : 1;
+                $dateFilter = isset($_GET["dateFilter"]) ? $_GET["dateFilter"] : '';
+                $search = isset($_GET["searchInput"]) ? $_GET["searchInput"] : '';
+
+                displayUsersBookedActivities($page, $dateFilter, $search);
                 ?>
             </section>
         </section>
     </section>
+  <?php } ?>
 
-
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
+<script src="node_modules//bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
-
 
 </html>

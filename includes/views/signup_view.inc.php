@@ -5,13 +5,13 @@ function checkSignupErrors() {
         $errors = $_SESSION["signupErrors"];
 
     foreach ($errors as $error) {
-        echo "<p style='color: red'>$error</p>";
+        echo "<p class='text-danger'>$error</p>";
     }
 
     unset($_SESSION["signupErrors"]);
     }
     else if (isset($_GET["signup"]) && $_GET["signup"] === "success") {
-        echo "<p style='color: green'>Sign Up Successful!</p>";
+        echo "<p class='ml-4 text-success'>Sign Up Successful!</p>";
     }
 }
 
@@ -21,7 +21,7 @@ function displaySignupInputs() {
         <div class="form-group">
             <h4 class="text-center font-weight-bold">Signup</h4>
             <label for="firstname">Firstname</label>
-            <input type="text" class="form-control mb-2" name="firstname" placeholder="Enter firstname" value="' . $_SESSION["signupData"]["firstname"] . '">
+            <input type="text" class="form-control mb-2" name="firstname" placeholder="Enter firstname" required value="' . $_SESSION["signupData"]["firstname"] . '">
         </div>
         ';
     } 
@@ -30,7 +30,7 @@ function displaySignupInputs() {
         <div class="form-group">
             <h4 class="text-center font-weight-bold">Signup</h4>
             <label for="firstname">Firstname</label>
-            <input type="text" class="form-control mb-2" name="firstname" placeholder="Enter firstname">
+            <input type="text" class="form-control mb-2" name="firstname" placeholder="Enter firstname" required>
         </div>
         ';
     }
@@ -39,7 +39,7 @@ function displaySignupInputs() {
         echo '
         <div class="form-group">
             <label for="surname">Surname</label>
-            <input type="text" class="form-control mb-2" name="surname" placeholder="Enter surname" value="' . $_SESSION["signupData"]["surname"] . '">
+            <input type="text" class="form-control mb-2" name="surname" placeholder="Enter surname" required value="' . $_SESSION["signupData"]["surname"] . '">
         </div>
         ';
     } 
@@ -47,7 +47,7 @@ function displaySignupInputs() {
         echo '
         <div class="form-group">
             <label for="surname">Surname</label>
-            <input type="text" class="form-control mb-2" name="surname" placeholder="Enter surname">
+            <input type="text" class="form-control mb-2" name="surname" placeholder="Enter surname" required>
         </div>
         ';
     }
@@ -56,7 +56,7 @@ function displaySignupInputs() {
         echo '
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" class="form-control mb-2" name="email" placeholder="Enter email" value="' . $_SESSION["signupData"]["email"] . '">
+            <input type="email" class="form-control mb-2" name="email" placeholder="Enter email" required value="' . $_SESSION["signupData"]["email"] . '">
         </div>
         ';
     } 
@@ -64,7 +64,7 @@ function displaySignupInputs() {
         echo '
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" class="form-control mb-2" name="email" placeholder="Enter email">
+            <input type="email" class="form-control mb-2" name="email" placeholder="Enter email" required>
         </div>
         ';
     }
@@ -72,11 +72,11 @@ function displaySignupInputs() {
     echo '
     <div class="form-group">
         <label for="pwd">Password</label>
-        <input type="password" class="form-control mb-2" name="pwd" placeholder="Password">
+        <input type="password" class="form-control mb-2" name="pwd" placeholder="Password" required>
     </div>
     <div class="form-group">
         <label for="pwd">Confirm Password</label>
-        <input type="password" class="form-control mb-4" name="confirmPwd" placeholder="Confirm Password">
+        <input type="password" class="form-control mb-4" name="confirmPwd" placeholder="Confirm Password" required>
     </div>
     ';
 
